@@ -1,0 +1,2 @@
+springboot
+https://start.spring.io/#!type=gradle-project&language=java&platformVersion=2.2.4.RELEASE&packaging=jar&jvmVersion=1.8&groupId=com.merkmal&artifactId=api-gate&name=apigate&description=API%20gateway%20for%20unbemerkenswert%2C%20the%20app%20with%20nothing%20to%20see%20here!&packageName=com.merkmal.apigate&dependencies=devtools,web,jdbc,data-jdbc,postgresql,flyway,restdocs,cloud-contract-stub-runner
