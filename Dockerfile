@@ -1,5 +1,6 @@
 FROM openjdk:8-jdk-alpine AS build
 COPY api-gate/ /app
+# $ rm -rf .gradle/ build/
 WORKDIR /app
 RUN ./gradlew --no-daemon build
 
@@ -9,4 +10,6 @@ ENTRYPOINT ["java","-jar","/app.jar"]
 
 FROM bash:4 as test
 COPY --from=build /app /app
-CMD /app/curl_8080_demo.sh
+#WORKDIR /app
+RUN apk add curl jq
+CMD ["bash","/app/curl_8080_demo.sh"]

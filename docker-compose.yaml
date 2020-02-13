@@ -12,5 +12,7 @@ services:
     build:
       context: .
       target: test
+    environment:
+      APIGATE_HOST: 'api-gate'
     depends_on:
       - api-gate

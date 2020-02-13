@@ -1,12 +1,51 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -x
+_wait_for_host=1
+host="localhost";
 port=8080
-url="localhost:${port}"
+if [[ ! -z "${APIGATE_HOST:-}" ]]; then
+  host="${APIGATE_HOST}"
+fi
+if [[ ! -z "${APIGATE_PORT:-}" ]]; then
+  port="${APIGATE_PORT}"
+fi
+url="${host}:${port}"
 url="${url}/demo"
 curl_content_type="Content-Type:application/json"
 cmd_show_all="curl -s ${url}"
 
 set -e
+# wait
+function fn_wait(){
+  # curl: (6) Could not resolve host: ocalhost
+  # curl: (7) Failed to connect to localhost port 8374: Connection refused
+  local ctr=30
+  while [[ "${ctr}" -gt 0 ]]; do
+    set +e
+    curl -s ${url}
+    local _rc=$?
+    set -e
+    if [[ "${_rc}" -eq 0 ]]; then
+      break;
+    elif [[ "${_rc}" -ne 7 ]]; then
+      break;
+    fi
+    (( ctr -= 1 ))
+    sleep 2
+  done
+  return ${_rc}
+}
+# wait for host to be ready
+if [[ "${_wait_for_host}" -eq 1 ]]; then
+  set +x
+  fn_wait
+  rc=$?
+  set -x
+  if [[ "${rc}" -ne 0 ]]; then
+    echo "couldn't connect to ${APIGATE_HOST}:${APIGATE_PORT}"
+    exit ${rc}
+  fi
+fi
 # delete all
 function fn_delete_all(){
   links=($( curl -s "${url}" | jq -r '._embedded.demo[]._links.self.href' ))
