@@ -1,11 +1,13 @@
-version: '3'
+version: '3.4'
 services:
   api-gate:
-    build: .
+    build:
+      context: .
+      target: prod
     ports:
       - 8080:8080
   test:
-    image: openjdk:8-jdk-alpine
+    image: bash:4
     command: ["sh", "-c", "sleep 30 && wget -qO- api-gate:8080/demo?name=docker-compose-is-alive"]
     depends_on:
       - api-gate
