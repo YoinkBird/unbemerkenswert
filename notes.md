@@ -4,6 +4,9 @@ https://start.spring.io/#!type=gradle-project&language=java&platformVersion=2.2.
 remove a lot to get it working; probably included too much
 https://start.spring.io/#!type=gradle-project&language=java&platformVersion=2.2.4.RELEASE&packaging=jar&jvmVersion=1.8&groupId=com.merkmal&artifactId=api-gate&name=apigate&description=API%20gateway%20for%20unbemerkenswert%2C%20the%20app%20with%20nothing%20to%20see%20here!&packageName=com.merkmal.apigate&dependencies=devtools,web
 
+## Spring Data JPA
+https://start.spring.io/#!type=gradle-project&language=java&platformVersion=2.2.4.RELEASE&packaging=jar&jvmVersion=1.8&groupId=com.merkmal&artifactId=api-gate&name=apigate&description=API%20gateway%20for%20unbemerkenswert%2C%20the%20app%20with%20nothing%20to%20see%20here!&packageName=com.merkmal.apigate&dependencies=devtools,web,data-jpa
+
 # intellij
 intellij uninstall
 remember to remove this: 
@@ -25,3 +28,7 @@ https://dzone.com/articles/spring-boot-application-live-reload-hot-swap-with
 
 compiler.automake.allow.when.app.running
 ```
+
+# database in memory
+https://stormpath.com/blog/tutorial-crud-spring-boot-20-minutes#add-a-database
+2020-02-12 20:11:58.115  INFO 4467 --- [  restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
