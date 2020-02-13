@@ -9,3 +9,4 @@ ENTRYPOINT ["java","-jar","/app.jar"]
 
 FROM bash:4 as test
 COPY --from=build /app /app
+CMD /app/curl_8080_demo.sh

@@ -1,3 +1,4 @@
+#!/bin/bash
 set -x
 port=8080
 url="localhost:${port}"
