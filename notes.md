@@ -12,3 +12,16 @@ remember to remove this:
 intellij is evil
 why use case in a dirname? so that autocomplete won't find it?
 src: https://intellij-support.jetbrains.com/hc/en-us/community/posts/207006735-Reset-IntelliJ-settings-to-default- 
+
+# live reload / hot swap
+https://dzone.com/articles/spring-boot-application-live-reload-hot-swap-with
+
+```
+1. Open the Settings --> Build-Execution-Deployment --> Compiler
+
+    and enable the Make Project Automatically.
+
+2. Then press ctrl+shift+A and search for the registry. In the registry, make the following configuration enabled.
+
+compiler.automake.allow.when.app.running
+```
