@@ -1,11 +1,11 @@
 package com.merkmal.apigate;
 
-public class Healthz {
+public class Demo {
 
 	private final long id;
 	private final String content;
 
-	public Healthz(long id, String content) {
+	public Demo(long id, String content) {
 		this.id = id;
 		this.content = content;
 	}

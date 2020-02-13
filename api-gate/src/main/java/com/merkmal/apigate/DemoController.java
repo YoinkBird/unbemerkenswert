@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class HealthzController {
+public class DemoController {
 
 	private static final String template = "health, %s!";
 	private final AtomicLong counter = new AtomicLong();
 
-	@GetMapping("/healthz")
-	public Healthz healthz(@RequestParam(value = "name", defaultValue = "not really") String name) {
-		return new Healthz(counter.incrementAndGet(), String.format(template, name));
+	@GetMapping("/demo")
+	public Demo demo(@RequestParam(value = "name", defaultValue = "not really") String name) {
+		return new Demo(counter.incrementAndGet(), String.format(template, name));
 	}
 }
