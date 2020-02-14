@@ -9,6 +9,7 @@ but not working, so use simpler implementation from: https://spring.io/guides/gs
 
 implementing https://spring.io/guides/tutorials/bookmarks/#_http_is_the_platform
 Broken:
+Note: more learnings at https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html
 ```
 $ ./gradlew bootRun
 
@@ -23,6 +24,7 @@ However, I had commented out the line calling the exception (see git commits), s
 
 Now:
 back-updating the "demo" class to let lombok do it's thing by removing the explicit setters/getter
+
 
 
 ## Lombok
