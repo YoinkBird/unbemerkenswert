@@ -32,6 +32,7 @@ https://dzone.com/articles/spring-boot-application-live-reload-hot-swap-with
 
 compiler.automake.allow.when.app.running
 ```
+/.IdeaIC2019.3/config/options/ide.general.xml
 
 # dataabase in memory
 https://stormpath.com/blog/tutorial-crud-spring-boot-20-minutes#add-a-database
@@ -41,3 +42,6 @@ https://stormpath.com/blog/tutorial-crud-spring-boot-20-minutes#add-a-database
 # src: https://stackoverflow.com/a/32783447
 $ find ~/.gradle -type f -name "*.lock" -delete
 
+
+# Java Misc
+src/main/java/com/example/books/Book.java:13: error: class Books is public, should be declared in a file named Books.java
