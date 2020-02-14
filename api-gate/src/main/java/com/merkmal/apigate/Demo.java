@@ -64,10 +64,14 @@ public class Demo {
           this.lastModified = dateOverride;
         }
 
-        // HACK - cannot figure out how to override Lambok "@Data"-generated constructor
         // call this on creation; update created date and lastmodified at same time
-        public void setCreateDateAndUpdateDate(){
+        // reason: must ensure that this.lastModified is set from this.created or else timestamps won't match ( calling this.setUpdateDate() as this would be a duplicate call to the date function, i.e. time will have passed)
+        private void setCreateDateAndUpdateDate(){
           this.setCreateDate();
           this.setUpdateDate(this.getCreated());
+        }
+
+        public Demo(){
+          this.setCreateDateAndUpdateDate();
         }
 }

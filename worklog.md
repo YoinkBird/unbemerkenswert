@@ -54,3 +54,10 @@ notes from attempts:
 ### Constructors
 not sure how to get Lombok to put the timestamp stuff in each generated constructor; for now doing it the super wrong way by calling it on creation/update/etc :-(
 further reading src: https://www.baeldung.com/spring-injection-lombok
+
+
+### testing
+refactored to create json in better fashion, be more strict about timestamps
+
+### Constructors again
+finally making progress; maybe was just doing it all wrong earlier?
