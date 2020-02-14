@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+// src: https://projectlombok.org/features/Data
 @Data
 @Entity
 public class Demo {
@@ -56,5 +57,10 @@ public class Demo {
         public void setUpdateDate(){
           String dateFormat = "yyyy-MM-dd'T'HH:mm:ss.S";
           this.lastModified = new SimpleDateFormat(dateFormat).format(new Date());
+        }
+        // HACK - cannot figure out how to override Lambok "@Data"-generated constructor
+        // allow overriding this.created
+        public void setUpdateDate(String dateOverride){
+          this.lastModified = dateOverride;
         }
 }

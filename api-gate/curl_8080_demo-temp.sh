@@ -70,9 +70,11 @@ echo "${resp_1}" | jq -r -e '.title == "java development"'
 echo "${resp_1}" | jq -r -e '.body == "rest api"' 
 echo "${resp_1}" | jq -r -e '.tags == ["tag1","tag2"]'
 echo "${resp_1}" | jq -r -e '.created != null'
-echo "${resp_1}" | jq -r -e '.lastModified == null'
+echo "${resp_1}" | jq -r -e '.lastModified != null'
 # this is for future comparison. since it is 'null', need to run as 'jq' instead of 'jq -e'
+last_created_1="$(echo "${resp_1}" | jq -r '.created')"
 last_mod_1="$(echo "${resp_1}" | jq -r '.lastModified')"
+test "${last_created_1}" == "${last_mod_1}"
 unset resp_1
 
 echo "# TEST: update resource, verify fields using 'jq'"
