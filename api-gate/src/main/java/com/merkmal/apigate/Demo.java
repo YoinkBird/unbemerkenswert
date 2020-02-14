@@ -50,11 +50,11 @@ public class Demo {
           // this.created = new SimpleDateFormat(this.dateFormat).format(new Date());
 
           // copy-pasta to setUpdateDate, doesn't work as class variable for some reason; see above comments
-          String dateFormat = "yyyy-MM-dd'T'HH:mm:ss";
+          String dateFormat = "yyyy-MM-dd'T'HH:mm:ss.S";
           this.created = new SimpleDateFormat(dateFormat).format(new Date());
         }
         public void setUpdateDate(){
-          String dateFormat = "yyyy-MM-dd'T'HH:mm:ss";
+          String dateFormat = "yyyy-MM-dd'T'HH:mm:ss.S";
           this.lastModified = new SimpleDateFormat(dateFormat).format(new Date());
         }
 }
