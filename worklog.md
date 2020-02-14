@@ -31,3 +31,26 @@ Just use normal array, as per src: https://www.projectlombok.org/features/ToStri
 
 ## Testing
 enhancing quick-and-dirty E2E test in bash to serve purposes as this evolves
+
+
+## timestamps
+src: https://stackoverflow.com/a/23068748
+=> good enough
+found imports at:
+https://docs.oracle.com/javase/7/docs/api/java/util/Date.html
+https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html
+
+CANNOT use SimpleDateFormat to do ISO 8601 src: https://stackoverflow.com/a/2202300
+
+notes from attempts:
+```
+          // attempt2 - ISO 8601-ish. oh noes: src https://stackoverflow.com/a/2202300
+          //String dateFormat = "yyyy.MM.ddTHH.mm.ss";
+          // java.lang.IllegalArgumentException: Illegal pattern character 'T'
+          // attempt3: didn't RTFM well enough, the  T needed single quotes
+```
+          // attempt2 - ISO 8601-ish. oh noes: src https://stackoverflow.com/a/2202300
+
+### Constructors
+not sure how to get Lombok to put the timestamp stuff in each generated constructor; for now doing it the super wrong way by calling it on creation/update/etc :-(
+further reading src: https://www.baeldung.com/spring-injection-lombok

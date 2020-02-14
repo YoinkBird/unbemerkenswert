@@ -17,6 +17,9 @@ public class Demo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+
+        // vvv doesn't work, format literally prints out this string.
+        // private final String dateFormat = "yyyy.MM.dd.HH.mm.ss";
         private String createDate;
         private String updateDate;
 
@@ -42,9 +45,16 @@ public class Demo {
         */
 
         public void setCreateDate(){
-          this.createDate = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+          // attempt1 - class variable
+          // String dateFormat = this.dateFormat.toString();
+          // this.createDate = new SimpleDateFormat(this.dateFormat).format(new Date());
+
+          // copy-pasta to setUpdateDate, doesn't work as class variable for some reason; see above comments
+          String dateFormat = "yyyy-MM-dd'T'HH:mm:ss";
+          this.createDate = new SimpleDateFormat(dateFormat).format(new Date());
         }
         public void setUpdateDate(){
-          this.updateDate = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+          String dateFormat = "yyyy-MM-dd'T'HH:mm:ss";
+          this.updateDate = new SimpleDateFormat(dateFormat).format(new Date());
         }
 }
