@@ -52,18 +52,20 @@ fi
 set -e
 
 set -u
-note_1_title="java_development"
+note_1_title="java development"
 # NOTE:just a placeholder. in bash and inline-json cannot pass these spaced-out strings due to the way bash flattens the list. bash considered harmfull :-)
-# note_1_body_A="rest api"
+note_1_body_A="rest api"
 # note_1_body_B="springboot framework works well"
 note_2="containers"
 echo "# TEST: create resource, verify fields using 'jq'"
 echo '#expected:  {"id":<n>,"created":"yyyy-MM-ddTHH:mm:ss","lastModified":null,"title":"'${note_1_title}'","body":"rest api","tags":["tag1","tag2"]}'
-resp_1="$(curl -s -X POST ${url}/demos -H 'Content-type:application/json' -d '{"title": "'${note_1_title}'", "body": "rest api", "tags": ["tag1","tag2"]}')"
+json_1="$( printf '{"title": "%s", "body": "rest api", "tags": ["tag1","tag2"]}' "${note_1_title[@]}")"
+resp_1="$(curl -s -X POST ${url}/demos -H 'Content-type:application/json' -d "${json_1[@]}")"
+echo $resp_1
 echo "#returned: '${resp_1}'"
 id_1="$( echo "${resp_1}" | jq -r '.id')"
-echo "${resp_1}" | jq -r -e '.title == "'${note_1_title}'"'
-echo "${resp_1}" | jq -r -e '.body == "rest api"'
+echo "${resp_1}" | jq -r -e ".title == \"${note_1_title}\""
+echo "${resp_1}" | jq -r -e ".body == \"${note_1_body_A[@]}\""
 echo "${resp_1}" | jq -r -e '.tags == ["tag1","tag2"]'
 echo "${resp_1}" | jq -r -e '.created != null'
 echo "${resp_1}" | jq -r -e '.lastModified == null'
