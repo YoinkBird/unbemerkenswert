@@ -81,3 +81,11 @@ import java.util.Arrays;
           this.setUpdateDate( updateDemo.getLastModified());
         }
 ```
+
+
+## REST
+converting to rest-ish API
+
+update URLs and force all requests to be get or post
+
+NOTE: does not self-document right now

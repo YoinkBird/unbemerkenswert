@@ -83,7 +83,7 @@ unset resp_1
 echo "# TEST: update resource, verify fields using 'jq'"
 echo '#expected:  {"id":'${id_1}',"created":"'${dateFormat}'","lastModified":"'${dateFormat}'","title":"'${note_1_title}'","body":"rest api","tags":["tag2","tag3"]}'
 json_2="$( printf '{"title": "%s", "body": "%s", "tags": ["tag1","tag2"]}' "${note_1_title[@]}" "${note_1_body_B[@]}" )"
-resp_2="$(curl -s -X PUT ${url}/notebooks/${id_1}/update -H 'Content-type:application/json' -d "${json_2[@]}")"
+resp_2="$(curl -s -X POST ${url}/notebooks/${id_1}/update -H 'Content-type:application/json' -d "${json_2[@]}")"
 echo "#returned: '${resp_2}'"
 # hard-coded oracles based on the note_1_<etc> vars; don't want to have accidents with variables
 echo "${resp_2}" | jq -r -e '.title == "java development"'
@@ -100,7 +100,7 @@ unset resp_2
 echo "# TEST: update resource, check lastModified timestamp. verify fields using 'jq'"
 echo '#expected:  {"id":'${id_1}',"created":"'${dateFormat}'","lastModified":"'${dateFormat}'","title":"'${note_1_title}'","body":"rest api","tags":["tag2","tag3"]}'
 # re-use json_2 from previous test
-resp_2b="$(curl -s -X PUT ${url}/notebooks/${id_1}/update -H 'Content-type:application/json' -d "${json_2[@]}")"
+resp_2b="$(curl -s -X POST ${url}/notebooks/${id_1}/update -H 'Content-type:application/json' -d "${json_2[@]}")"
 echo "#returned: '${resp_2b}'"
 # hard-coded oracles based on the note_1_<etc> vars; don't want to have accidents with variables
 echo "${resp_2b}" | jq -r -e '.title == "java development"'
@@ -118,7 +118,7 @@ unset resp_2b
 if [[ "${_skip_deletion_test}" -eq 0 ]]; then
   echo "# TEST: delete resource"
   echo "#expected: '' (empty response)"
-  resp_3="$(curl -s -X DELETE ${url}/notebooks/${id_1}/delete)"
+  resp_3="$(curl -s -X POST ${url}/notebooks/${id_1}/delete)"
   echo "#returned: '${resp_3}'"
   test -z "${resp_3}"
   unset resp_3
