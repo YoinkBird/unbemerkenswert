@@ -9,34 +9,34 @@ Runs `docker-compose --abort-on-container-exit` and prints the return code
 
 # About
 
-(partially) Implements [requirements.md]().
+(partially) Implements [requirements.md](requirements.md).
 
-Miscellaneous notes are under [notes.md] and continued under [worklog.md] .
+Miscellaneous notes are under [notes.md](notes.md) and continued under [worklog.md](worklog.md) .
 
 # Structure
 
-The [docker-compose.yaml] corresponds to targets within the [Dockerfile], namely `build`, `prod`, and `test`.
+The [docker-compose.yaml](docker-compose.yaml) corresponds to targets within the [Dockerfile](Dockerfile), namely `build`, `prod`, and `test`.
 
-[api-gate] contains all java code.
+[api-gate](api-gate) contains all java code.
 
-[utils] contains scripts that helped manage IDEs and frameworks
+[utils](utils) contains scripts that helped manage IDEs and frameworks
 
 ## Documentation
 
 There are not as many comments or javadoc as I would like; this is due to time constraints.
 
-My hope is that this is self-documenting enough via the simple [run.sh] entrypoint and the resulting test output.
+My hope is that this is self-documenting enough via the simple [run.sh](run.sh) entrypoint and the resulting test output.
 
 ## Testing
-Testing is implemented as a bash e2e test using `jq` and `test` within [api-gate/curl_8080_demo-temp.sh]
+Testing is implemented as a bash e2e test using `jq` and `test` within [api-gate/curl_8080_demo-temp.sh](api-gate/curl_8080_demo-temp.sh)
 
 
-Unit testing was not implemented; see [#unit-testing] for details.
+Unit testing was not implemented; see [#unit-testing](#unit-testing) for details.
 
 
 ## Program Structure
 
-Simple layout with all code being within [api-gate/build/classes/java/main/com/merkmal/apigate]
+Simple layout with all code being within [api-gate/build/classes/java/main/com/merkmal/apigate](api-gate/build/classes/java/main/com/merkmal/apigate)
 
 gradle was used as the build tool as it is easy to hand-edit.
 
@@ -89,7 +89,7 @@ Short non-exhaustive list of issues:
 * wouldn't start until I deleted my preferences
 * wouldn't run my included gradle files
 * completely refused to recognise valid imports, e.g. Lombok, which were defined within the build.gradle
-* very tricky to install correctly on \*nix, and has no uninstaller. See [utils/install_intellij.sh]
+* very tricky to install correctly on \*nix, and has no uninstaller. See [utils/install_intellij.sh](utils/install_intellij.sh)
 
 I have used java IDEs before, and usually they save a lot of time with advanced refactoring, managing imports, gradle, etc.
 Unfortunately that was not meant to be.
