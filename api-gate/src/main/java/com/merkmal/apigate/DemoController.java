@@ -21,26 +21,26 @@ class DemoController {
 
   // Aggregate root
 
-  @GetMapping("/demos")
+  @GetMapping("/notebooks")
   List<Demo> all() {
     return repository.findAll();
   }
 
-  @PostMapping("/demos")
+  @PostMapping("/notebooks")
   Demo newDemo(@RequestBody Demo newDemo) {
     return repository.save(newDemo);
   }
 
   // Single item
 
-  @GetMapping("/demos/{id}")
+  @GetMapping("/notebooks/{id}")
   Demo one(@PathVariable Long id) {
 
     return repository.findById(id)
       .orElseThrow(() -> new DemoNotFoundException(id));
   }
 
-  @PutMapping("/demos/{id}")
+  @PutMapping("/notebooks/{id}")
   Demo replaceDemo(@RequestBody Demo newDemo, @PathVariable Long id) {
 
     return repository.findById(id)
@@ -54,7 +54,7 @@ class DemoController {
       });
   }
 
-  @DeleteMapping("/demos/{id}")
+  @DeleteMapping("/notebooks/{id}")
   void deleteDemo(@PathVariable Long id) {
     repository.deleteById(id);
   }
