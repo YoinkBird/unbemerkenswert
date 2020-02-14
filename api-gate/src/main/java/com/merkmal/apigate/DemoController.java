@@ -28,6 +28,7 @@ class DemoController {
 
   @PostMapping("/demos")
   Demo newDemo(@RequestBody Demo newDemo) {
+    newDemo.setCreateDate();
     return repository.save(newDemo);
   }
 
@@ -46,11 +47,13 @@ class DemoController {
     return repository.findById(id)
       .map(demo -> {
         demo.setBody(newDemo.getBody());
+        demo.setUpdateDate();
         //demo.setRole(newDemo.getRole());
         return repository.save(demo);
       })
       .orElseGet(() -> {
         newDemo.setId(id);
+        newDemo.setUpdateDate();
         return repository.save(newDemo);
       });
   }
