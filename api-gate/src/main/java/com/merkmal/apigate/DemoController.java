@@ -22,22 +22,55 @@ class DemoController {
   }
 
   /*
+   * Notebooks
+   */
+  // TODO: use separate class for 'Notebook' instead of 'Demo
+  // view all notebooks
+  @GetMapping("/notebooks")
+  List<Demo> allNotebooks() {
+    return repository.findAll();
+  }
+
+  // create notebook
+  @PostMapping("/notebooks/create")
+  Demo newNotebook(@RequestBody Demo newNotebook) {
+    return repository.save(newNotebook);
+  }
+
+  /*
+  // view notebook
+  @GetMapping("/notebooks/{nbid}")
+  Demo singleNotebook(@PathVariable Long id) {
+
+    return repository.findById(id)
+      .orElseThrow(() -> new DemoNotFoundException(id));
+  }
+  */
+
+  // NO need for "notebook update", although timestamp does need to be updated
+
+  // delete notebook
+  @PostMapping("/notebooks/{nbid}/delete")
+  void deleteNotebook(@PathVariable Long id) {
+    repository.deleteById(id);
+  }
+
+  /*
    * Individual Notes
    */
-  // Aggregate root
-
+  // within notebook, view all notes
   @GetMapping("/notebooks/{nbid}")
   List<Demo> all() {
     return repository.findAll();
   }
 
+  // within notebook, create note
   @PostMapping("/notebooks/{nbid}/create")
   Demo newDemo(@RequestBody Demo newDemo) {
     return repository.save(newDemo);
   }
 
-  // Single item
-
+  // within notebook, view note
   @GetMapping("/notebooks/{nbid}/{id}")
   Demo one(@PathVariable Long id) {
 
@@ -45,6 +78,7 @@ class DemoController {
       .orElseThrow(() -> new DemoNotFoundException(id));
   }
 
+  // within notebook, update note
   @PostMapping("/notebooks/{nbid}/{id}/update")
   Demo replaceDemo(@RequestBody Demo newDemo, @PathVariable Long id) {
 
@@ -59,6 +93,7 @@ class DemoController {
       });
   }
 
+  // within notebook, delete note
   @PostMapping("/notebooks/{nbid}/{id}/delete")
   void deleteDemo(@PathVariable Long id) {
     repository.deleteById(id);
