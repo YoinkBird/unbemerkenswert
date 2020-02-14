@@ -50,21 +50,27 @@ if [[ "${_wait_for_host}" -eq 1 ]]; then
   echo ""
   echo "# INFO: server is up!" 
 fi
-# BEGIN TESTS
 set -e
 
 set -u
+# GLOBALS
 # vvv defined within ./src/main/java/com/merkmal/apigate/Demo.java
 dateFormat="yyyy-MM-dd'T'HH:mm:ss.S";
+# define note titles and bodies
 note_1_title="java development"
 # NOTE:just a placeholder. in bash and inline-json cannot pass these spaced-out strings due to the way bash flattens the list. bash considered harmfull :-)
 note_1_body_A="rest api"
 note_1_body_B="springboot framework works well"
 note_2="containers"
+
+# TEMP: placeholder until notebooks are created
+nbook_1_id=1
+
+# BEGIN TESTS
 echo "# TEST: create resource, verify fields using 'jq'"
 echo '#expected:  {"id":<n>,"created":"'${dateFormat}'","lastModified":"'${dateFormat}'","title":"'${note_1_title}'","body":"rest api","tags":["tag1","tag2"]}'
 json_1="$( printf '{"title": "%s", "body": "%s", "tags": ["tag1","tag2"]}' "${note_1_title[@]}" "${note_1_body_A[@]}")"
-resp_1="$(curl -s -X POST ${url}/notebooks/create -H 'Content-type:application/json' -d "${json_1[@]}")"
+resp_1="$(curl -s -X POST ${url}/notebooks/${nbook_1_id}/create -H 'Content-type:application/json' -d "${json_1[@]}")"
 echo $resp_1
 echo "#returned: '${resp_1}'"
 id_1="$( echo "${resp_1}" | jq -r '.id')"
@@ -83,7 +89,7 @@ unset resp_1
 echo "# TEST: update resource, verify fields using 'jq'"
 echo '#expected:  {"id":'${id_1}',"created":"'${dateFormat}'","lastModified":"'${dateFormat}'","title":"'${note_1_title}'","body":"rest api","tags":["tag2","tag3"]}'
 json_2="$( printf '{"title": "%s", "body": "%s", "tags": ["tag1","tag2"]}' "${note_1_title[@]}" "${note_1_body_B[@]}" )"
-resp_2="$(curl -s -X POST ${url}/notebooks/${id_1}/update -H 'Content-type:application/json' -d "${json_2[@]}")"
+resp_2="$(curl -s -X POST ${url}/notebooks/${nbook_1_id}/${id_1}/update -H 'Content-type:application/json' -d "${json_2[@]}")"
 echo "#returned: '${resp_2}'"
 # hard-coded oracles based on the note_1_<etc> vars; don't want to have accidents with variables
 echo "${resp_2}" | jq -r -e '.title == "java development"'
@@ -100,7 +106,7 @@ unset resp_2
 echo "# TEST: update resource, check lastModified timestamp. verify fields using 'jq'"
 echo '#expected:  {"id":'${id_1}',"created":"'${dateFormat}'","lastModified":"'${dateFormat}'","title":"'${note_1_title}'","body":"rest api","tags":["tag2","tag3"]}'
 # re-use json_2 from previous test
-resp_2b="$(curl -s -X POST ${url}/notebooks/${id_1}/update -H 'Content-type:application/json' -d "${json_2[@]}")"
+resp_2b="$(curl -s -X POST ${url}/notebooks/${nbook_1_id}/${id_1}/update -H 'Content-type:application/json' -d "${json_2[@]}")"
 echo "#returned: '${resp_2b}'"
 # hard-coded oracles based on the note_1_<etc> vars; don't want to have accidents with variables
 echo "${resp_2b}" | jq -r -e '.title == "java development"'
@@ -118,20 +124,20 @@ unset resp_2b
 if [[ "${_skip_deletion_test}" -eq 0 ]]; then
   echo "# TEST: delete resource"
   echo "#expected: '' (empty response)"
-  resp_3="$(curl -s -X POST ${url}/notebooks/${id_1}/delete)"
+  resp_3="$(curl -s -X POST ${url}/notebooks/${nbook_1_id}/${id_1}/delete)"
   echo "#returned: '${resp_3}'"
   test -z "${resp_3}"
   unset resp_3
 
   echo "# TEST: handle errors correctly"
   echo "#expected: 'Could not find record ${id_1}'"
-  resp_4="$( curl -s ${url}/notebooks/${id_1} )"
+  resp_4="$( curl -s ${url}/notebooks/${nbook_1_id}/${id_1} )"
   test "${resp_4}" == "Could not find record ${id_1}"
   echo "#returned: '${resp_4}'"
   unset resp_4
 else
   echo "SKIPPING: test to delete, test to verify error handling"
-  echo curl -s ${url}/notebooks/${id_1}
+  echo curl -s ${url}/notebooks/${nbook_1_id}/${id_1}
 fi
 echo DONE
 exit 0

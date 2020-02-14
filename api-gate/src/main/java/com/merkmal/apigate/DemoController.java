@@ -14,33 +14,38 @@ import org.springframework.web.bind.annotation.RestController;
 class DemoController {
 
   private final DemoRepository repository;
+  // HACK placeholder
+  // private final notebook_id = 1;
 
   DemoController(DemoRepository repository) {
     this.repository = repository;
   }
 
+  /*
+   * Individual Notes
+   */
   // Aggregate root
 
-  @GetMapping("/notebooks")
+  @GetMapping("/notebooks/{nbid}")
   List<Demo> all() {
     return repository.findAll();
   }
 
-  @PostMapping("/notebooks/create")
+  @PostMapping("/notebooks/{nbid}/create")
   Demo newDemo(@RequestBody Demo newDemo) {
     return repository.save(newDemo);
   }
 
   // Single item
 
-  @GetMapping("/notebooks/{id}")
+  @GetMapping("/notebooks/{nbid}/{id}")
   Demo one(@PathVariable Long id) {
 
     return repository.findById(id)
       .orElseThrow(() -> new DemoNotFoundException(id));
   }
 
-  @PostMapping("/notebooks/{id}/update")
+  @PostMapping("/notebooks/{nbid}/{id}/update")
   Demo replaceDemo(@RequestBody Demo newDemo, @PathVariable Long id) {
 
     return repository.findById(id)
@@ -54,7 +59,7 @@ class DemoController {
       });
   }
 
-  @PostMapping("/notebooks/{id}/delete")
+  @PostMapping("/notebooks/{nbid}/{id}/delete")
   void deleteDemo(@PathVariable Long id) {
     repository.deleteById(id);
   }

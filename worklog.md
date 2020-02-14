@@ -89,3 +89,7 @@ converting to rest-ish API
 update URLs and force all requests to be get or post
 
 NOTE: does not self-document right now
+
+
+## NOTEBOOKS
+adding in parent notebooks; somehow missed that as a requirement
