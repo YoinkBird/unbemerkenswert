@@ -92,9 +92,11 @@ exit
 
 echo "# TEST: update resource, check lastModified timestamp. verify fields using 'jq'"
 echo '#expected:  {"id":'${id_1}',"created":"yyyy-MM-ddTHH:mm:ss","lastModified":"yyyy-MM-ddTHH:mm:ss","title":"'${note_1_title}'","body":"rest api","tags":["tag2","tag3"]}'
-resp_2b="$(curl -s -X PUT ${url}/demos/${id_1} -H 'Content-type:application/json' -d '{"title": "'${note_1_title}'", "body": "springboot framework works well", "tags": ["tag2","tag3"]}')"
+# re-use json_2 from previous test
+resp_2b="$(curl -s -X PUT ${url}/demos/${id_1} -H 'Content-type:application/json' -d "${json_2[@]}")"
 echo "#returned: '${resp_2b}'"
-echo "${resp_2b}" | jq -r -e '.title == "'${note_1_title}'"'
+# hard-coded oracles based on the note_1_<etc> vars; don't want to have accidents with variables
+echo "${resp_2b}" | jq -r -e '.title == "java development"'
 echo "${resp_2b}" | jq -r -e '.body == "springboot framework works well"'
 # doesn't work due to underlying implementation; tags are 'String[]'
 echo "${resp_2b}" | jq -r -e '.tags == ["tag2","tag3"]' || echo '`-- EXPECTED FAIL ^^^'
@@ -103,6 +105,7 @@ echo "${resp_1}" | jq -r -e '.lastModified != "null"'
 # compare timestamp
 last_mod_2b="$(echo "${resp_2b}" | jq -r -e '.lastModified')"
 test "${last_mod_2b}" != "${last_mod_2}"
+exit
 
 echo "# TEST: delete resource"
 echo "#expected: '' (empty response)"
