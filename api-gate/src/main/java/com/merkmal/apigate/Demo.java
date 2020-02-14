@@ -20,9 +20,7 @@ public class Demo {
 	public long getId() {
 		return id;
 	}
-        /*
         Demo(){}
-        */
         
         Demo(String name){
           this.content = content;
