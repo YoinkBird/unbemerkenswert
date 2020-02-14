@@ -45,16 +45,11 @@ class DemoController {
 
     return repository.findById(id)
       .map(demo -> {
-        demo.setBody(newDemo.getBody());
-        // HACK - cannot figure out how to override Lambok "@Data"-generated constructor
-        demo.setUpdateDate();
-        //demo.setRole(newDemo.getRole());
+        demo.update( newDemo );
         return repository.save(demo);
       })
       .orElseGet(() -> {
         newDemo.setId(id);
-        // HACK - cannot figure out how to override Lambok "@Data"-generated constructor
-        newDemo.setUpdateDate();
         return repository.save(newDemo);
       });
   }

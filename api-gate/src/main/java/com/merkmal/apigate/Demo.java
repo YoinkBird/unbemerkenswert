@@ -74,4 +74,11 @@ public class Demo {
         public Demo(){
           this.setCreateDateAndUpdateDate();
         }
+
+        public void update(Demo updateDemo){
+          this.setBody( updateDemo.getBody() );
+          this.setTags( updateDemo.getTags() );
+          this.setUpdateDate( updateDemo.getLastModified());
+        }
+
 }
