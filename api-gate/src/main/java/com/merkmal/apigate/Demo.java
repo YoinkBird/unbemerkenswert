@@ -15,7 +15,9 @@ public class Demo {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 //	private @Id @GeneratedValue(strategy = GenerationType.AUTO) Long id;
+	private String title;
 	private String body;
+	private String[] tags;
 
 	public long getId() {
 		return id;
@@ -25,12 +27,4 @@ public class Demo {
         Demo(String name){
           this.body = body;
         }
-        /*
-        public void setContent(String content){
-          this.content = content;
-        }
-        public String getContent(){
-          return content;
-        }
-        */
 }

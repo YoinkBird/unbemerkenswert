@@ -23,3 +23,8 @@ However, I had commented out the line calling the exception (see git commits), s
 
 Now:
 back-updating the "demo" class to let lombok do it's thing by removing the explicit setters/getter
+
+
+## Lombok
+doesn't like ArrayList, no worries.
+Just use normal array, as per src: https://www.projectlombok.org/features/ToString
