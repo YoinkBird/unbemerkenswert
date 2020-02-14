@@ -2,6 +2,7 @@
 #PURPOSE: quick and crappy placeholder; this is NOT a REST API as it uses the normal HTTP ops for everything. however, it does help "nail down" the code as it is refactored to be a REST API
 #set -x
 _wait_for_host=1
+_skip_deletion_test=0
 host="localhost";
 port=8080
 if [[ ! -z "${APIGATE_HOST:-}" ]]; then
@@ -114,7 +115,7 @@ test "${last_mod_2b}" != "${last_mod_2}"
 unset resp_2b
 
 # can be nice to disable when exploratory testing
-if [[ 1 -eq 1 ]]; then
+if [[ "${_skip_deletion_test}" -eq 0 ]]; then
   echo "# TEST: delete resource"
   echo "#expected: '' (empty response)"
   resp_3="$(curl -s -X DELETE ${url}/demos/${id_1})"
