@@ -1,10 +1,11 @@
 FROM openjdk:8-jdk-alpine AS build
 COPY api-gate/ /app
-# $ rm -rf .gradle/ build/
 WORKDIR /app
+# remove any artifats from repo
+RUN rm -rf .gradle/ build/
 RUN ./gradlew --no-daemon build
 
-FROM openjdk:8-jdk-alpine AS prod
+FROM openjdk:8-jre-slim AS prod
 COPY --from=build /app/build/libs/api-gate-*.jar /app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]
 
