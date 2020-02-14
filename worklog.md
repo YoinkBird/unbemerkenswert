@@ -61,3 +61,23 @@ refactored to create json in better fashion, be more strict about timestamps
 
 ### Constructors again
 finally making progress; maybe was just doing it all wrong earlier?
+
+
+## tags
+not sure why tags don't update, but a bit of testing has shown that the actual newDemo doesn't have them
+```
+        demo.update( newDemo );
+```
+```
+
+import java.util.Arrays;
+//...
+        public void update(Demo updateDemo){
+          this.setBody( updateDemo.getBody() );
+          String[] testarr =  { "no1","no2"} ;
+          this.setTags( testarr );
+          System.out.println( Arrays.toString( updateDemo.getTags() ) );
+          this.setTags( updateDemo.getTags() );
+          this.setUpdateDate( updateDemo.getLastModified());
+        }
+```
