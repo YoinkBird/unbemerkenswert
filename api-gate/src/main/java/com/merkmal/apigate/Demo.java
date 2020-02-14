@@ -31,19 +31,6 @@ public class Demo {
 	public long getId() {
 		return id;
 	}
-        /*
-        Demo(){}
-        */
-        
-        /*
-         * NOT SURE how lombok constructors work; disabling for now since this was so very misleading
-        Demo(String name, String body, String[] tags){
-          this.body = body;
-          //this.created = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-          this.created ="hello";
-
-        }
-        */
 
         public void setCreateDate(){
           // attempt1 - class variable
