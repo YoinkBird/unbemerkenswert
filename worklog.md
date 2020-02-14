@@ -28,3 +28,6 @@ back-updating the "demo" class to let lombok do it's thing by removing the expli
 ## Lombok
 doesn't like ArrayList, no worries.
 Just use normal array, as per src: https://www.projectlombok.org/features/ToString
+
+## Testing
+enhancing quick-and-dirty E2E test in bash to serve purposes as this evolves
