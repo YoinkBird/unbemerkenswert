@@ -18,4 +18,4 @@ ENV DOCKERIZE_VERSION v0.6.1
 RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
     && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
     && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
-CMD ["dockerize", "-wait", "http://api-gate:8080", "-timeout", "30s", "bash","/app/curl_8080_demo.sh"]
+CMD ["dockerize", "-wait", "http://api-gate:8080", "-timeout", "30s", "bash","/app/curl_8080_demo-temp.sh"]
