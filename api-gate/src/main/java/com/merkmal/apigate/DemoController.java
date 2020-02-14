@@ -26,7 +26,7 @@ class DemoController {
     return repository.findAll();
   }
 
-  @PostMapping("/notebooks")
+  @PostMapping("/notebooks/create")
   Demo newDemo(@RequestBody Demo newDemo) {
     return repository.save(newDemo);
   }
@@ -40,7 +40,7 @@ class DemoController {
       .orElseThrow(() -> new DemoNotFoundException(id));
   }
 
-  @PutMapping("/notebooks/{id}")
+  @PutMapping("/notebooks/{id}/update")
   Demo replaceDemo(@RequestBody Demo newDemo, @PathVariable Long id) {
 
     return repository.findById(id)
@@ -54,7 +54,7 @@ class DemoController {
       });
   }
 
-  @DeleteMapping("/notebooks/{id}")
+  @DeleteMapping("/notebooks/{id}/delete")
   void deleteDemo(@PathVariable Long id) {
     repository.deleteById(id);
   }
