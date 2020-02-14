@@ -111,21 +111,26 @@ last_mod_2b="$(echo "${resp_2b}" | jq -r -e '.lastModified')"
 test "${last_mod_2b}" != "${last_mod_2}"
 unset resp_2b
 
-echo "# TEST: delete resource"
-echo "#expected: '' (empty response)"
-resp_3="$(curl -s -X DELETE ${url}/demos/${id_1})"
-echo "#returned: '${resp_3}'"
-test -z "${resp_3}"
-unset resp_3
+# can be nice to disable when exploratory testing
+if [[ 1 -eq 1 ]]; then
+  echo "# TEST: delete resource"
+  echo "#expected: '' (empty response)"
+  resp_3="$(curl -s -X DELETE ${url}/demos/${id_1})"
+  echo "#returned: '${resp_3}'"
+  test -z "${resp_3}"
+  unset resp_3
 
-echo "# TEST: handle errors correctly"
-echo "#expected: 'Could not find record ${id_1}'"
-resp_4="$( curl -s ${url}/demos/${id_1} )"
-test "${resp_4}" == "Could not find record ${id_1}"
-echo "#returned: '${resp_4}'"
-unset resp_4
+  echo "# TEST: handle errors correctly"
+  echo "#expected: 'Could not find record ${id_1}'"
+  resp_4="$( curl -s ${url}/demos/${id_1} )"
+  test "${resp_4}" == "Could not find record ${id_1}"
+  echo "#returned: '${resp_4}'"
+  unset resp_4
+else
+  echo "SKIPPING: test to delete, test to verify error handling"
+  echo curl -s ${url}/demos/${id_1}
+fi
 echo DONE
-echo $?
 exit 0
 
 
