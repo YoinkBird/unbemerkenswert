@@ -13,18 +13,34 @@ and operations to create notes in a given notebook, update a given note, and del
 
 Creating notes requires submitting a JSON request body with “title”, “body”, and “tags”
 attributes. “Title” and “body” can be strings, but tags should be an array of strings.
+```
+curl -s -H Content-Type:application/json \
+ -d '{"title": "<title>" \
+ "body": "<body>" \
+ "tags": "[<tags>] \
+ }' \
+ localhost:8080/create
+```
 
 When a note is first created, an “id”, “created” timestamp and “lastModified” timestamp should
 be set to the note. When a note is updated, the “lastModified” timestamp should be updated.
+```
+```
 
 Retrieving a notebook should provide a list of note “metadata” (i.e. “id”, “title”, “tags”, “created”
 time and ”lastModified” time for each note). You should be able to specify a tag when retrieving
 a notebook and receive a filtered list of notes that contain that tag string.
+```
+```
 
 When retrieving a specific note, provide a response body with “id”, “title”, “body”, “tags” (as an
 array of strings), “created” and “lastModified”.
+```
+```
 
 When a note is deleted, it can be considered permanent and no record of it needs to be kept.
+```
+```
 
 
 # Additional:

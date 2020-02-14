@@ -15,7 +15,7 @@ public class Demo {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 //	private @Id @GeneratedValue(strategy = GenerationType.AUTO) Long id;
-	private String content;
+	private String body;
 
 	public long getId() {
 		return id;
@@ -23,7 +23,7 @@ public class Demo {
         Demo(){}
         
         Demo(String name){
-          this.content = content;
+          this.body = body;
         }
         /*
         public void setContent(String content){

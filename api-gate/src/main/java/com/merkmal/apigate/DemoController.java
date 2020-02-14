@@ -45,7 +45,7 @@ class DemoController {
 
     return repository.findById(id)
       .map(demo -> {
-        demo.setContent(newDemo.getContent());
+        demo.setBody(newDemo.getBody());
         //demo.setRole(newDemo.getRole());
         return repository.save(demo);
       })
