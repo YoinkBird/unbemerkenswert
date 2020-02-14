@@ -1,0 +1,21 @@
+plugins {
+id 'application'
+}
+apply plugin: 'java'
+apply plugin: 'application'
+
+archivesBaseName = "first"
+version = '1.0'
+//mainClassName = "com.example.firstspark.FirstSpark"
+mainClassName = "com.example.books/Books"
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  compile 'com.sparkjava:spark-core:2.5'
+  compile 'org.slf4j:slf4j-simple:1.7.6'
+}
+// https://stackoverflow.com/questions/36334496/autoreload-in-jetty-with-gradle-and-kotlin
+applicationDefaultJvmArgs = ["-Djetty.reload=automatic", "-Djetty.scanIntervalSeconds=2"]
