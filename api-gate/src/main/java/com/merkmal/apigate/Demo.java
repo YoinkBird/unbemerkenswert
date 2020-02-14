@@ -20,8 +20,8 @@ public class Demo {
 
         // vvv doesn't work, format literally prints out this string.
         // private final String dateFormat = "yyyy.MM.dd.HH.mm.ss";
-        private String createDate;
-        private String updateDate;
+        private String created;
+        private String lastModified;
 
 	private String title;
 	private String body;
@@ -38,8 +38,8 @@ public class Demo {
          * NOT SURE how lombok constructors work; disabling for now since this was so very misleading
         Demo(String name, String body, String[] tags){
           this.body = body;
-          //this.createDate = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-          this.createDate ="hello";
+          //this.created = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+          this.created ="hello";
 
         }
         */
@@ -47,14 +47,14 @@ public class Demo {
         public void setCreateDate(){
           // attempt1 - class variable
           // String dateFormat = this.dateFormat.toString();
-          // this.createDate = new SimpleDateFormat(this.dateFormat).format(new Date());
+          // this.created = new SimpleDateFormat(this.dateFormat).format(new Date());
 
           // copy-pasta to setUpdateDate, doesn't work as class variable for some reason; see above comments
           String dateFormat = "yyyy-MM-dd'T'HH:mm:ss";
-          this.createDate = new SimpleDateFormat(dateFormat).format(new Date());
+          this.created = new SimpleDateFormat(dateFormat).format(new Date());
         }
         public void setUpdateDate(){
           String dateFormat = "yyyy-MM-dd'T'HH:mm:ss";
-          this.updateDate = new SimpleDateFormat(dateFormat).format(new Date());
+          this.lastModified = new SimpleDateFormat(dateFormat).format(new Date());
         }
 }

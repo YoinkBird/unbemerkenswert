@@ -52,26 +52,26 @@ fi
 set -e
 
 echo "# TEST: create resource, verify fields using 'jq'"
-echo '#expected:  {"id":<n>,"createDate":"yyyy-MM-ddTHH:mm:ss","updateDate":null,"title":"Samwise Gamgee","body":"gardener","tags":["tag1","tag2"]}'
+echo '#expected:  {"id":<n>,"created":"yyyy-MM-ddTHH:mm:ss","lastModified":null,"title":"Samwise Gamgee","body":"gardener","tags":["tag1","tag2"]}'
 resp_1="$(curl -s -X POST ${url}/demos -H 'Content-type:application/json' -d '{"title": "Samwise Gamgee", "body": "gardener", "tags": ["tag1","tag2"]}')"
 echo "#returned: '${resp_1}'"
 id_1="$( echo "${resp_1}" | jq -r '.id')"
 echo "${resp_1}" | jq -r -e '.title == "Samwise Gamgee"'
 echo "${resp_1}" | jq -r -e '.body == "gardener"'
 echo "${resp_1}" | jq -r -e '.tags == ["tag1","tag2"]'
-echo "${resp_1}" | jq -r -e '.createDate != "null"'
-echo "${resp_1}" | jq -r -e '.updateDate == null'
+echo "${resp_1}" | jq -r -e '.created != "null"'
+echo "${resp_1}" | jq -r -e '.lastModified == null'
 
 echo "# TEST: update resource, verify fields using 'jq'"
-echo '#expected:  {"id":'${id_1}',"createDate":"yyyy-MM-ddTHH:mm:ss","updateDate":"yyyy-MM-ddTHH:mm:ss","title":"Samwise Gamgee","body":"gardener","tags":["tag2","tag3"]}'
+echo '#expected:  {"id":'${id_1}',"created":"yyyy-MM-ddTHH:mm:ss","lastModified":"yyyy-MM-ddTHH:mm:ss","title":"Samwise Gamgee","body":"gardener","tags":["tag2","tag3"]}'
 resp_2="$(curl -s -X PUT ${url}/demos/${id_1} -H 'Content-type:application/json' -d '{"title": "Samwise Gamgee", "body": "ring bearer", "tags": ["tag2","tag3"]}')"
 echo "#returned: '${resp_2}'"
 echo "${resp_2}" | jq -r -e '.title == "Samwise Gamgee"'
 echo "${resp_2}" | jq -r -e '.body == "ring bearer"'
 # doesn't work due to underlying implementation; tags are 'String[]'
 echo "${resp_2}" | jq -r -e '.tags == ["tag2","tag3"]' || echo '`-- EXPECTED FAIL ^^^'
-echo "${resp_1}" | jq -r -e '.createDate != "null"'
-echo "${resp_1}" | jq -r -e '.updateDate != "null"'
+echo "${resp_1}" | jq -r -e '.created != "null"'
+echo "${resp_1}" | jq -r -e '.lastModified != "null"'
 
 echo "# TEST: delete resource"
 echo "#expected: '' (empty response)"
