@@ -16,6 +16,7 @@ curl_content_type="Content-Type:application/json"
 cmd_show_all="curl -s ${url}"
 
 set -e
+set -o pipefail
 # wait
 function fn_wait(){
   # curl: (6) Could not resolve host: ocalhost
@@ -72,6 +73,7 @@ echo "${resp_1}" | jq -r -e '.created != null'
 echo "${resp_1}" | jq -r -e '.lastModified == null'
 # this is for future comparison. since it is 'null', need to run as 'jq' instead of 'jq -e'
 last_mod_1="$(echo "${resp_1}" | jq -r '.lastModified')"
+unset resp_1
 
 echo "# TEST: update resource, verify fields using 'jq'"
 echo '#expected:  {"id":'${id_1}',"created":"yyyy-MM-ddTHH:mm:ss","lastModified":"yyyy-MM-ddTHH:mm:ss","title":"'${note_1_title}'","body":"rest api","tags":["tag2","tag3"]}'
@@ -88,6 +90,7 @@ echo "${resp_2}" | jq -r -e '.lastModified != null'
 # compare timestamp
 last_mod_2="$(echo "${resp_2}" | jq -r -e '.lastModified')"
 test "${last_mod_2}" != "${last_mod_1}"
+unset resp_2
 
 echo "# TEST: update resource, check lastModified timestamp. verify fields using 'jq'"
 echo '#expected:  {"id":'${id_1}',"created":"yyyy-MM-ddTHH:mm:ss","lastModified":"yyyy-MM-ddTHH:mm:ss","title":"'${note_1_title}'","body":"rest api","tags":["tag2","tag3"]}'
@@ -99,23 +102,26 @@ echo "${resp_2b}" | jq -r -e '.title == "java development"'
 echo "${resp_2b}" | jq -r -e '.body == "springboot framework works well"'
 # doesn't work due to underlying implementation; tags are 'String[]'
 echo "${resp_2b}" | jq -r -e '.tags == ["tag2","tag3"]' || echo '`-- EXPECTED FAIL ^^^'
-echo "${resp_1}" | jq -r -e '.created != "null"'
-echo "${resp_1}" | jq -r -e '.lastModified != "null"'
+echo "${resp_2b}" | jq -r -e '.created != "null"'
+echo "${resp_2b}" | jq -r -e '.lastModified != "null"'
 # compare timestamp
 last_mod_2b="$(echo "${resp_2b}" | jq -r -e '.lastModified')"
 test "${last_mod_2b}" != "${last_mod_2}"
+unset resp_2b
 
 echo "# TEST: delete resource"
 echo "#expected: '' (empty response)"
 resp_3="$(curl -s -X DELETE ${url}/demos/${id_1})"
 echo "#returned: '${resp_3}'"
 test -z "${resp_3}"
+unset resp_3
 
 echo "# TEST: handle errors correctly"
 echo "#expected: 'Could not find record ${id_1}'"
 resp_4="$( curl -s ${url}/demos/${id_1} )"
 test "${resp_4}" == "Could not find record ${id_1}"
 echo "#returned: '${resp_4}'"
+unset resp_4
 echo DONE
 echo $?
 exit 0
