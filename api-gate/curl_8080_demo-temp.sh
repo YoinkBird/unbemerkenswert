@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #PURPOSE: quick and crappy placeholder; this is NOT a REST API as it uses the normal HTTP ops for everything. however, it does help "nail down" the code as it is refactored to be a REST API
 #set -x
-_wait_for_host=0
+_wait_for_host=1
 host="localhost";
 port=8080
 if [[ ! -z "${APIGATE_HOST:-}" ]]; then
@@ -16,6 +16,41 @@ curl_content_type="Content-Type:application/json"
 cmd_show_all="curl -s ${url}"
 
 set -e
+# wait
+function fn_wait(){
+  # curl: (6) Could not resolve host: ocalhost
+  # curl: (7) Failed to connect to localhost port 8374: Connection refused
+  local ctr=30
+  while [[ "${ctr}" -gt 0 ]]; do
+    set +e
+    curl -s ${url}
+    local _rc=$?
+    set -e
+    if [[ "${_rc}" -eq 0 ]]; then
+      break;
+    elif [[ "${_rc}" -ne 7 ]]; then
+      break;
+    fi
+    (( ctr -= 1 ))
+    sleep 2
+  done
+  return ${_rc}
+}
+# wait for host to be ready
+if [[ "${_wait_for_host}" -eq 1 ]]; then
+  echo "# INFO: waiting for server..."
+  fn_wait
+  rc=$?
+  if [[ "${rc}" -ne 0 ]]; then
+    echo "couldn't connect to ${APIGATE_HOST}:${APIGATE_PORT}"
+    exit ${rc}
+  fi
+  echo ""
+  echo "# INFO: server is up!" 
+fi
+# BEGIN TESTS
+set -e
+
 echo "# TEST: create resource, verify fields using 'jq'"
 echo '#expected:  {"id":<n>,"createDate":"yyyy-MM-ddTHH:mm:ss","updateDate":null,"title":"Samwise Gamgee","body":"gardener","tags":["tag1","tag2"]}'
 resp_1="$(curl -s -X POST ${url}/demos -H 'Content-type:application/json' -d '{"title": "Samwise Gamgee", "body": "gardener", "tags": ["tag1","tag2"]}')"
