@@ -2,24 +2,13 @@ package com.merkmal.apigate;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
 
 // src: https://projectlombok.org/features/Data
 @Data
-@Entity
-public class Demo {
+public class Singlenote {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
         // vvv doesn't work, format literally prints out this string.
@@ -30,8 +19,6 @@ public class Demo {
 	private String title;
 	private String body;
 	private String[] tags;
-
-        private static Map<String, Singlenote> notes = new HashMap<String, Singlenote>();
 
 	public long getId() {
 		return id;
@@ -63,20 +50,14 @@ public class Demo {
           this.setUpdateDate(this.getCreated());
         }
 
-        public Demo(){
+        public Singlenote(){
           this.setCreateDateAndUpdateDate();
         }
 
-        public void update(Demo updateDemo){
-          this.setBody( updateDemo.getBody() );
-          this.setTags( updateDemo.getTags() );
-          this.setUpdateDate( updateDemo.getLastModified());
+        public void update(Singlenote updateNote){
+          this.setBody( updateNote.getBody() );
+          this.setTags( updateNote.getTags() );
+          this.setUpdateDate( updateNote.getLastModified());
         }
 
-        public void addNote(Singlenote newNote){
-            final Random random = new Random();
-            int id = random.nextInt(Integer.MAX_VALUE);
-            this.notes.put(String.valueOf(id), newNote);
-
-        }
 }

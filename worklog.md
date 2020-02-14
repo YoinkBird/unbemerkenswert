@@ -93,3 +93,10 @@ NOTE: does not self-document right now
 
 ## NOTEBOOKS
 adding in parent notebooks; somehow missed that as a requirement
+
+goal now: add notes to notes (i.e. Demo)
+
+stop: cannot search within objects, cannot retrieve objects.
+
+Perhaps this could be a good entrypoint for the future:
+https://stackoverflow.com/questions/47996810/how-to-search-with-jparepository-and-nested-list-of-objects
