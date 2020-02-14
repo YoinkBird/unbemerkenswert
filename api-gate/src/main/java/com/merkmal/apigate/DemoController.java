@@ -29,8 +29,7 @@ class DemoController {
   @PostMapping("/demos")
   Demo newDemo(@RequestBody Demo newDemo) {
     // HACK - cannot figure out how to override Lambok "@Data"-generated constructor
-    newDemo.setCreateDate();
-    newDemo.setUpdateDate(newDemo.getCreated());
+    newDemo.setCreateDateAndUpdateDate();
     return repository.save(newDemo);
   }
 

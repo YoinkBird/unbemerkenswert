@@ -59,8 +59,15 @@ public class Demo {
           this.lastModified = new SimpleDateFormat(dateFormat).format(new Date());
         }
         // HACK - cannot figure out how to override Lambok "@Data"-generated constructor
-        // allow overriding this.created
-        public void setUpdateDate(String dateOverride){
+        // privately allow overriding this.created
+        private void setUpdateDate(String dateOverride){
           this.lastModified = dateOverride;
+        }
+
+        // HACK - cannot figure out how to override Lambok "@Data"-generated constructor
+        // call this on creation; update created date and lastmodified at same time
+        public void setCreateDateAndUpdateDate(){
+          this.setCreateDate();
+          this.setUpdateDate(this.getCreated());
         }
 }
