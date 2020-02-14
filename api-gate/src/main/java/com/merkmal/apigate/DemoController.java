@@ -36,8 +36,8 @@ class DemoController {
   @GetMapping("/demos/{id}")
   Demo one(@PathVariable Long id) {
 
-    return repository.findById(id);
-//      .orElseThrow(() -> new DemoNotFoundException(id));
+    return repository.findById(id)
+      .orElseThrow(() -> new DemoNotFoundException(id));
   }
 
   @PutMapping("/demos/{id}")

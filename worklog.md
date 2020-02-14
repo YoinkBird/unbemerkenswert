@@ -16,3 +16,7 @@ $ ./gradlew bootRun
 /home/yoinkbird/workspace/search3/knime/unbemerkenswert/api-gate/src/main/java/com/merkmal/apigate/DemoController.java:39: error: incompatible types: Optional<Demo> cannot be converted to Demo
     return repository.findById(id);
 ```
+
+... ok tutorials are hard, but now at least I know exactly what the error was
+summary: not really sure why, but adding the DemoNotFoundException resolved the issue. in the tutorial, I hadn't noticed the extra classfile below (for throwing exception).
+However, I had commented out the line calling the exception (see git commits), so I'm not sure how this suddenly worked. 
