@@ -59,7 +59,7 @@ id_1="$( echo "${resp_1}" | jq -r '.id')"
 echo "${resp_1}" | jq -r -e '.title == "Samwise Gamgee"'
 echo "${resp_1}" | jq -r -e '.body == "gardener"'
 echo "${resp_1}" | jq -r -e '.tags == ["tag1","tag2"]'
-echo "${resp_1}" | jq -r -e '.created != "null"'
+echo "${resp_1}" | jq -r -e '.created != null'
 echo "${resp_1}" | jq -r -e '.lastModified == null'
 
 echo "# TEST: update resource, verify fields using 'jq'"
@@ -70,8 +70,8 @@ echo "${resp_2}" | jq -r -e '.title == "Samwise Gamgee"'
 echo "${resp_2}" | jq -r -e '.body == "ring bearer"'
 # doesn't work due to underlying implementation; tags are 'String[]'
 echo "${resp_2}" | jq -r -e '.tags == ["tag2","tag3"]' || echo '`-- EXPECTED FAIL ^^^'
-echo "${resp_1}" | jq -r -e '.created != "null"'
-echo "${resp_1}" | jq -r -e '.lastModified != "null"'
+echo "${resp_2}" | jq -r -e '.created != null'
+echo "${resp_2}" | jq -r -e '.lastModified != null'
 
 echo "# TEST: delete resource"
 echo "#expected: '' (empty response)"
