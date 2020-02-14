@@ -20,3 +20,6 @@ $ ./gradlew bootRun
 ... ok tutorials are hard, but now at least I know exactly what the error was
 summary: not really sure why, but adding the DemoNotFoundException resolved the issue. in the tutorial, I hadn't noticed the extra classfile below (for throwing exception).
 However, I had commented out the line calling the exception (see git commits), so I'm not sure how this suddenly worked. 
+
+Now:
+back-updating the "demo" class to let lombok do it's thing by removing the explicit setters/getter
