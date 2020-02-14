@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -x
-_wait_for_host=1
+_wait_for_host=0
 host="localhost";
 port=8080
 if [[ ! -z "${APIGATE_HOST:-}" ]]; then
@@ -77,7 +77,7 @@ curl -s -X PUT -H ${curl_content_type} -d '{"content": "cat"}' ${self_href_1}
 
 curl -s ${url}/search/findByContent?name=thing1
 curl -s ${url}/search/findByContent?name=cat
-curl ${url}
+curl -s ${url}
 
 # delete this one thing
 links=($( curl -s '${url}/search/findByContent?name=thing1' | jq -r '._embedded.demo[]._links.self.href' ))
