@@ -25,6 +25,8 @@ curl -s -H Content-Type:application/json \
 When a note is first created, an “id”, “created” timestamp and “lastModified” timestamp should
 be set to the note. When a note is updated, the “lastModified” timestamp should be updated.
 ```
+#expected:
+{"id":<n>,"created":"yyyy-MM-ddTHH:mm:ss","lastModified":null,"title":"Samwise Gamgee","body":"gardener","tags":["tag1","tag2"]}
 ```
 
 Retrieving a notebook should provide a list of note “metadata” (i.e. “id”, “title”, “tags”, “created”
