@@ -53,15 +53,17 @@ set -e
 
 set -u
 note_1_title="java_development"
-note_1_body_A="springboot_framework"
+# NOTE:just a placeholder. in bash and inline-json cannot pass these spaced-out strings due to the way bash flattens the list. bash considered harmfull :-)
+# note_1_body_A="rest api"
+# note_1_body_B="springboot framework works well"
 note_2="containers"
 echo "# TEST: create resource, verify fields using 'jq'"
-echo '#expected:  {"id":<n>,"created":"yyyy-MM-ddTHH:mm:ss","lastModified":null,"title":"'${note_1_title}'","body":"'${note_1_body_A}'","tags":["tag1","tag2"]}'
-resp_1="$(curl -s -X POST ${url}/demos -H 'Content-type:application/json' -d '{"title": "'${note_1_title}'", "body": "'${note_1_body_A}'", "tags": ["tag1","tag2"]}')"
+echo '#expected:  {"id":<n>,"created":"yyyy-MM-ddTHH:mm:ss","lastModified":null,"title":"'${note_1_title}'","body":"rest api","tags":["tag1","tag2"]}'
+resp_1="$(curl -s -X POST ${url}/demos -H 'Content-type:application/json' -d '{"title": "'${note_1_title}'", "body": "rest api", "tags": ["tag1","tag2"]}')"
 echo "#returned: '${resp_1}'"
 id_1="$( echo "${resp_1}" | jq -r '.id')"
 echo "${resp_1}" | jq -r -e '.title == "'${note_1_title}'"'
-echo "${resp_1}" | jq -r -e '.body == "'${note_1_body_A}'"'
+echo "${resp_1}" | jq -r -e '.body == "rest api"'
 echo "${resp_1}" | jq -r -e '.tags == ["tag1","tag2"]'
 echo "${resp_1}" | jq -r -e '.created != null'
 echo "${resp_1}" | jq -r -e '.lastModified == null'
@@ -69,11 +71,11 @@ echo "${resp_1}" | jq -r -e '.lastModified == null'
 last_mod_1="$(echo "${resp_1}" | jq -r '.lastModified')"
 
 echo "# TEST: update resource, verify fields using 'jq'"
-echo '#expected:  {"id":'${id_1}',"created":"yyyy-MM-ddTHH:mm:ss","lastModified":"yyyy-MM-ddTHH:mm:ss","title":"'${note_1_title}'","body":"'${note_1_body_A}'","tags":["tag2","tag3"]}'
-resp_2="$(curl -s -X PUT ${url}/demos/${id_1} -H 'Content-type:application/json' -d '{"title": "'${note_1_title}'", "body": "ring bearer", "tags": ["tag2","tag3"]}')"
+echo '#expected:  {"id":'${id_1}',"created":"yyyy-MM-ddTHH:mm:ss","lastModified":"yyyy-MM-ddTHH:mm:ss","title":"'${note_1_title}'","body":"rest api","tags":["tag2","tag3"]}'
+resp_2="$(curl -s -X PUT ${url}/demos/${id_1} -H 'Content-type:application/json' -d '{"title": "'${note_1_title}'", "body": "springboot framework works well", "tags": ["tag2","tag3"]}')"
 echo "#returned: '${resp_2}'"
 echo "${resp_2}" | jq -r -e '.title == "'${note_1_title}'"'
-echo "${resp_2}" | jq -r -e '.body == "ring bearer"'
+echo "${resp_2}" | jq -r -e '.body == "springboot framework works well"'
 # doesn't work due to underlying implementation; tags are 'String[]'
 echo "${resp_2}" | jq -r -e '.tags == ["tag2","tag3"]' || echo '`-- EXPECTED FAIL ^^^'
 echo "${resp_2}" | jq -r -e '.created != null'
@@ -83,11 +85,11 @@ last_mod_2="$(echo "${resp_2}" | jq -r -e '.lastModified')"
 test "${last_mod_2}" != "${last_mod_1}"
 
 echo "# TEST: update resource, check lastModified timestamp. verify fields using 'jq'"
-echo '#expected:  {"id":'${id_1}',"created":"yyyy-MM-ddTHH:mm:ss","lastModified":"yyyy-MM-ddTHH:mm:ss","title":"'${note_1_title}'","body":"'${note_1_body_A}'","tags":["tag2","tag3"]}'
-resp_2b="$(curl -s -X PUT ${url}/demos/${id_1} -H 'Content-type:application/json' -d '{"title": "'${note_1_title}'", "body": "ring bearer", "tags": ["tag2","tag3"]}')"
+echo '#expected:  {"id":'${id_1}',"created":"yyyy-MM-ddTHH:mm:ss","lastModified":"yyyy-MM-ddTHH:mm:ss","title":"'${note_1_title}'","body":"rest api","tags":["tag2","tag3"]}'
+resp_2b="$(curl -s -X PUT ${url}/demos/${id_1} -H 'Content-type:application/json' -d '{"title": "'${note_1_title}'", "body": "springboot framework works well", "tags": ["tag2","tag3"]}')"
 echo "#returned: '${resp_2b}'"
 echo "${resp_2b}" | jq -r -e '.title == "'${note_1_title}'"'
-echo "${resp_2b}" | jq -r -e '.body == "ring bearer"'
+echo "${resp_2b}" | jq -r -e '.body == "springboot framework works well"'
 # doesn't work due to underlying implementation; tags are 'String[]'
 echo "${resp_2b}" | jq -r -e '.tags == ["tag2","tag3"]' || echo '`-- EXPECTED FAIL ^^^'
 echo "${resp_1}" | jq -r -e '.created != "null"'
