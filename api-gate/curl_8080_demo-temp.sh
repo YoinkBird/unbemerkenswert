@@ -41,9 +41,9 @@ echo "#returned: '${resp_3}'"
 test -z "${resp_3}"
 
 echo "# TEST: handle errors correctly"
-echo "#expected: 'Could not find employee ${id_1}'"
+echo "#expected: 'Could not find record ${id_1}'"
 resp_4="$( curl -s ${url}/demos/${id_1} )"
-test "${resp_4}" == "Could not find employee ${id_1}"
+test "${resp_4}" == "Could not find record ${id_1}"
 echo "#returned: '${resp_4}'"
 echo DONE
 echo $?

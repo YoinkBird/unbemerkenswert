@@ -11,7 +11,7 @@ class DemoNotFoundAdvice {
   @ResponseBody
   @ExceptionHandler(DemoNotFoundException.class)
   @ResponseStatus(HttpStatus.NOT_FOUND)
-  String employeeNotFoundHandler(DemoNotFoundException ex) {
+  String demoNotFoundHandler(DemoNotFoundException ex) {
     return ex.getMessage();
   }
 }
