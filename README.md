@@ -2,10 +2,45 @@
 nothing of note here!
 
 # USAGE
-Runs `docker-compose --abort-on-container-exit` and prints the return code
+
+## Quick Start and Demo
+This launches the server as well as a test:
 ```
 ./run.sh
 ```
+
+## API
+Once the server is running (see above header), it can be interacted with as follows:
+
+### Create Notebook
+Not implemented
+
+### Create Note
+Use any notebook id - specific notebooks not yet implemented
+```
+$ curl -s -X POST localhost:8080/notebooks/1/create -H 'Content-type:application/json' -d '{"title": "<title>", "body": "<body>", "tags": ["<tag1>","<tag2>"]}'
+```
+
+### View Speicific Note
+Use any notebook id - specific notebooks not yet implemented
+```
+$ curl -s localhost:8080/notebooks/1/<id>
+```
+
+### View All Notebooks
+```
+$ curl -s localhost:8080/notebooks
+```
+
+### Delete Note
+Use any notebook id - specific notebooks not yet implemented
+```
+$ curl -s localhost:8080/notebooks/1/<id>/delete
+```
+
+## Examples:
+
+For sample usage and output, see [examples.md](examples.md)
 
 # About
 
