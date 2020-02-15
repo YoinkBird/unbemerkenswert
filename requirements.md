@@ -19,25 +19,52 @@ curl -s -H Content-Type:application/json \
  "body": "<body>" \
  "tags": "[<tags>] \
  }' \
- localhost:8080/create
+ localhost:8080/notebooks/<notebook_id>/create
 ```
 
-When a note is first created, an “id”, “created” timestamp and “lastModified” timestamp should
-be set to the note. When a note is updated, the “lastModified” timestamp should be updated.
+When a note is first created, an “id”, “created” timestamp and “lastModified” timestamp should be set to the note.
+
+timestamp will follow the format: "yyyy-MM-ddTHH:mm:ss.S"
+
 ```
-#expected:
-{"id":<n>,"created":"yyyy-MM-ddTHH:mm:ss","lastModified":null,"title":"Samwise Gamgee","body":"gardener","tags":["tag1","tag2"]}
+{"id":<n>,
+"created": "2020-02-10T23:32:25.883",
+"lastModified":"2020-02-10T23:32:25.883",
+"title":"<title>",
+"body":"<body>",
+"tags":["tag1","tag2"]}
 ```
+When a note is updated, the “lastModified” timestamp should be updated.
+```
+{"id":<n>,
+"title":"<title>",
+"created":"2020-02-10T23:32:25.883",
+"lastModified":"2020-02-10T23:32:26.249",
+"body":"<body>",
+"tags":["tag1","tag2"]}
+```
+
 
 Retrieving a notebook should provide a list of note “metadata” (i.e. “id”, “title”, “tags”, “created”
 time and ”lastModified” time for each note). You should be able to specify a tag when retrieving
 a notebook and receive a filtered list of notes that contain that tag string.
-```
-```
 
 When retrieving a specific note, provide a response body with “id”, “title”, “body”, “tags” (as an
 array of strings), “created” and “lastModified”.
 ```
+$ curl -s localhost:8080/notebooks/1/5
+{
+  "id": 5,
+  "created": "2020-02-10T17:46:43.624",
+  "lastModified": "2020-02-10T17:46:44.931",
+  "title": "java development",
+  "body": "springboot framework works well",
+  "tags": [
+    "tag1",
+    "tag2"
+  ]
+}
+
 ```
 
 When a note is deleted, it can be considered permanent and no record of it needs to be kept.
