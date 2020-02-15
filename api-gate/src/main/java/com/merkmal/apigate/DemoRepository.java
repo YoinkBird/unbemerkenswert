@@ -9,7 +9,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
-@RepositoryRestResource(collectionResourceRel = "demo", path = "demo")
+@RepositoryRestResource(collectionResourceRel = "notebooks_all", path = "notebooks_all")
 public interface DemoRepository extends JpaRepository<Demo, Long> {
 
 // List<Demo> findByContent(@Param("name") String name);
