@@ -88,6 +88,14 @@ This is not a RESTful API as it does not semantically expose its resources.
 
 This is because more pressing issues needed to be solved, and then there wasn't enough time.
 
+### Past Successes
+
+These compromises are especially annoying because the requirements were nothing new to me. Hopefully the following links can provide an idea of where this project was going.
+
+* java unit tests - https://github.com/YoinkBird/testinglab
+* Sockets From Scratch, and gradle even works - https://github.com/YoinkBird/methreeoh/tree/master/commnets/socket_learn
+* REST API, server, and json - https://github.com/YoinkBird/cyclesafe_server/blob/import_model_180908/server.py 
+
 # CHALLENGES
 
 ## IDE
