@@ -108,6 +108,7 @@ Short non-exhaustive list of issues:
 * wouldn't run my included gradle files
 * completely refused to recognise valid imports, e.g. Lombok, which were defined within the build.gradle
 * very tricky to install correctly on \*nix, and has no uninstaller. See [utils/install_intellij.sh](utils/install_intellij.sh)
+* VCS integration with git was very hard to get used to
 
 I have used java IDEs before, and usually they save a lot of time with advanced refactoring, managing imports, gradle, etc.
 Unfortunately that was not meant to be.
@@ -151,9 +152,16 @@ Once this path has been followed, it is difficult to adapt the code to do anythi
 
 Useful Links:
 
+https://spring.io/guides/gs/rest-service/#initial
+=> basic reference, only interfaces with repository objects
+
 https://spring.io/guides/tutorials/bookmarks/#_http_is_the_platform
 
 => simply returns repository representations, no actual interaction. Still, the documentation on being RESTful is nice.
+
+https://stormpath.com/blog/tutorial-crud-spring-boot-20-minutes
+
+=> provides some additional context on top of normal spring boot tutorials
 
 ### JavaSpark
 

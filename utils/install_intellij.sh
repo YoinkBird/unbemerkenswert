@@ -50,7 +50,7 @@ exit 0
 # remove shortcut
 # src: https://www.howtogeek.com/445303/how-to-create-desktop-shortcuts-on-ubuntu/
 # rm ~/.local/share/applications/jetbrains-idea-ce.desktop 
-# remove install
+# remove config (src: https://intellij-support.jetbrains.com/hc/en-us/articles/206544519-Directories-used-by-the-IDE-to-store-settings-caches-plugins-and-logs )
 # rm -rf ~/.IdeaIC*
 # remove launcher
 # sudo rm /usr/local/bin/idea

@@ -20,6 +20,9 @@ intellij is evil
 why use case in a dirname? so that autocomplete won't find it?
 src: https://intellij-support.jetbrains.com/hc/en-us/community/posts/207006735-Reset-IntelliJ-settings-to-default- 
 
+## misc errors
+https://stackoverflow.com/questions/31215452/intellij-idea-importing-gradle-project-getting-java-home-not-defined-yet
+
 # live reload / hot swap
 https://dzone.com/articles/spring-boot-application-live-reload-hot-swap-with
 
@@ -37,6 +40,9 @@ compiler.automake.allow.when.app.running
 # dataabase in memory
 https://stormpath.com/blog/tutorial-crud-spring-boot-20-minutes#add-a-database
 2020-02-12 20:11:58.115  INFO 4467 --- [  restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+
+# setting up alternative port
+adapted from https://stackoverflow.com/questions/21083170/how-to-configure-port-for-a-spring-boot-application
 
 # gradle lock
 # src: https://stackoverflow.com/a/32783447
