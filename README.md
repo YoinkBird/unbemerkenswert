@@ -13,6 +13,16 @@ Runs `docker-compose --abort-on-container-exit` and prints the return code
 
 Miscellaneous notes are under [notes.md](notes.md) and continued under [worklog.md](worklog.md) .
 
+Naming Convention:
+
+A codename was used avoid making this repo findable via search in case this problem is re-used in the future.
+
+In German, to "note" is "bemerken", and "unbemerkenswert" means "nothing of note".
+
+This became a pun and self-fulfilling prophecy, as it both is a play on words of the original phrase and this app doesn't quite work as intended.
+
+The `merkmal` used in the classpath was intended to avoid the boredom of yet another `com.example`, and it means something akin to `note`.
+
 # Structure
 
 The [docker-compose.yaml](docker-compose.yaml) corresponds to targets within the [Dockerfile](Dockerfile), namely `build`, `prod`, and `test`.

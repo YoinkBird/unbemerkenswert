@@ -1,5 +1,5 @@
 Cloud Engineering - Programming Assignment
-# Nevernote API
+# N-e-v-e-r-n-o-t-e API
 Design and implement an “Evernote-like” RESTful web service that can be used to save, retrieve and update organized notes.
 
 This assignment must be completed in Java and use Maven, but you may use the frameworks and libraries of your choice.
