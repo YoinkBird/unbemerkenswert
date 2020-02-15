@@ -64,7 +64,8 @@ note_1_title="java development"
 # NOTE:just a placeholder. in bash and inline-json cannot pass these spaced-out strings due to the way bash flattens the list. bash considered harmfull :-)
 note_1_body_A="rest api"
 note_1_body_B="springboot framework works well"
-note_2="containers"
+note_2_title="containers"
+note_2_body_A="use Docker!"
 
 # TEMP: placeholder until notebooks are created
 nbook_1_id=1
@@ -129,21 +130,45 @@ last_mod_2b="$(echo "${resp_2b}" | jq -r -e '.lastModified')"
 test "${last_mod_2b}" != "${last_mod_2}"
 unset resp_2b
 
+echo "# TEST: create NEW resource, verify fields using 'jq'"
+echo '#expected:  {"id":<n>,"created":"'${dateFormat}'","lastModified":"'${dateFormat}'","title":"'${note_2_title}'","body":"rest api","tags":["whale","shipit"]}'
+json_1="$( printf '{"title": "%s", "body": "%s", "tags": ["whale","shipit"]}' "${note_2_title[@]}" "${note_2_body_A[@]}")"
+if [[ "${_verbose}" -gt 0 ]]; then
+  echo "#running: curl -s -X POST ${url}/notebooks/${nbook_1_id}/create -H 'Content-type:application/json' -d "${json_1[@]}""
+fi
+resp_3="$(curl -s -X POST ${url}/notebooks/${nbook_1_id}/create -H 'Content-type:application/json' -d "${json_1[@]}")"
+echo "#returned: '${resp_3}'"
+id_1="$( echo "${resp_3}" | jq -r '.id')"
+# hard-coded oracles based on the note_2_<etc> vars; don't want to have accidents with variables
+echo "${resp_3}" | jq -r -e '.title == "containers"'
+echo "${resp_3}" | jq -r -e '.body == "use Docker!"' 
+echo "${resp_3}" | jq -r -e '.tags == ["whale","shipit"]'
+echo "${resp_3}" | jq -r -e '.created != null'
+echo "${resp_3}" | jq -r -e '.lastModified != null'
+# this is for future comparison. since it is 'null', need to run as 'jq' instead of 'jq -e'
+last_created_1="$(echo "${resp_3}" | jq -r '.created')"
+last_mod_1="$(echo "${resp_3}" | jq -r '.lastModified')"
+test "${last_created_1}" == "${last_mod_1}"
+unset resp_3
+
+
 # can be nice to disable when exploratory testing
 if [[ "${_skip_deletion_test}" -eq 0 ]]; then
   echo "# TEST: delete resource"
   echo "#expected: '' (empty response)"
-  resp_3="$(curl -s -X POST ${url}/notebooks/${nbook_1_id}/${id_1}/delete)"
-  echo "#returned: '${resp_3}'"
-  test -z "${resp_3}"
-  unset resp_3
+  set -x
+  resp="$(curl -s -X POST ${url}/notebooks/${nbook_1_id}/${id_1}/delete)"
+  set +x
+  echo "#returned: '${resp}'"
+  test -z "${resp}"
+  unset resp
 
   echo "# TEST: handle errors correctly"
   echo "#expected: 'Could not find record ${id_1}'"
-  resp_4="$( curl -s ${url}/notebooks/${nbook_1_id}/${id_1} )"
-  test "${resp_4}" == "Could not find record ${id_1}"
-  echo "#returned: '${resp_4}'"
-  unset resp_4
+  resp="$( curl -s ${url}/notebooks/${nbook_1_id}/${id_1} )"
+  test "${resp}" == "Could not find record ${id_1}"
+  echo "#returned: '${resp}'"
+  unset resp
 else
   echo "SKIPPING: test to delete, test to verify error handling"
   echo curl -s ${url}/notebooks/${nbook_1_id}/${id_1}
