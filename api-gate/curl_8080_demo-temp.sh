@@ -3,6 +3,9 @@
 #set -x
 _wait_for_host=1
 _skip_deletion_test=0
+dbecho=""
+dbecho="echo"
+_verbose=1
 host="localhost";
 port=8080
 if [[ ! -z "${APIGATE_HOST:-}" ]]; then
@@ -70,6 +73,9 @@ nbook_1_id=1
 echo "# TEST: create resource, verify fields using 'jq'"
 echo '#expected:  {"id":<n>,"created":"'${dateFormat}'","lastModified":"'${dateFormat}'","title":"'${note_1_title}'","body":"rest api","tags":["tag1","tag2"]}'
 json_1="$( printf '{"title": "%s", "body": "%s", "tags": ["tag1","tag2"]}' "${note_1_title[@]}" "${note_1_body_A[@]}")"
+if [[ "${_verbose}" -gt 0 ]]; then
+  echo "#running: curl -s -X POST ${url}/notebooks/${nbook_1_id}/create -H 'Content-type:application/json' -d "${json_1[@]}""
+fi
 resp_1="$(curl -s -X POST ${url}/notebooks/${nbook_1_id}/create -H 'Content-type:application/json' -d "${json_1[@]}")"
 echo $resp_1
 echo "#returned: '${resp_1}'"
@@ -89,6 +95,9 @@ unset resp_1
 echo "# TEST: update resource, verify fields using 'jq'"
 echo '#expected:  {"id":'${id_1}',"created":"'${dateFormat}'","lastModified":"'${dateFormat}'","title":"'${note_1_title}'","body":"rest api","tags":["tag2","tag3"]}'
 json_2="$( printf '{"title": "%s", "body": "%s", "tags": ["tag1","tag2"]}' "${note_1_title[@]}" "${note_1_body_B[@]}" )"
+if [[ "${_verbose}" -gt 0 ]]; then
+  echo "#running: curl -s -X POST ${url}/notebooks/${nbook_1_id}/${id_1}/update -H 'Content-type:application/json' -d "${json_2[@]}""
+fi
 resp_2="$(curl -s -X POST ${url}/notebooks/${nbook_1_id}/${id_1}/update -H 'Content-type:application/json' -d "${json_2[@]}")"
 echo "#returned: '${resp_2}'"
 # hard-coded oracles based on the note_1_<etc> vars; don't want to have accidents with variables
