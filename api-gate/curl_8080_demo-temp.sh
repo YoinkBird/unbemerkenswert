@@ -157,7 +157,7 @@ if [[ "${_skip_deletion_test}" -eq 0 ]]; then
   echo "# TEST: delete resource"
   echo "#expected: '' (empty response)"
   set -x
-  resp="$(curl -s -X POST ${url}/notebooks/${nbook_1_id}/${id_1}/delete)"
+  resp="$(curl -s ${url}/notebooks/${nbook_1_id}/${id_1}/delete)"
   set +x
   echo "#returned: '${resp}'"
   test -z "${resp}"

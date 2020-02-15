@@ -94,7 +94,7 @@ class DemoController {
   }
 
   // within notebook, delete note
-  @PostMapping("/notebooks/{nbid}/{id}/delete")
+  @GetMapping("/notebooks/{nbid}/{id}/delete")
   void deleteDemo(@PathVariable Long id) {
     repository.deleteById(id);
   }
