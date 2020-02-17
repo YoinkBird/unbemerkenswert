@@ -8,59 +8,59 @@ import java.util.Random;
 
 //src: https://github.com/perwendel/spark/blob/master/README.md#examples
 /**
- * A simple CRUD example showing how to create, get, update and delete book resources.
+ * A simple CRUD example showing how to create, get, update and delete notebook resources.
  */
 public class Merkmal {
 
     /**
      * Map holding the notebooks
      */
-    private static Map<String, Notebook> books = new HashMap<String, Notebook>();
+    private static Map<String, Notebook> notebooks = new HashMap<String, Notebook>();
 
     public static void main(String[] args) {
         port(8080);
         final Random random = new Random();
 
-        // Creates a new book resource, will return the ID to the created resource
+        // Creates a new notebook resource, will return the ID to the created resource
         // author and title are sent in the post body as x-www-urlencoded values e.g. author=Foo&title=Bar
         // you get them by using request.queryParams("valuename")
         post("/notebooks", (request, response) -> {
             String author = request.queryParams("author");
             String title = request.queryParams("title");
-            Notebook book = new Notebook(author, title);
+            Notebook notebook = new Notebook(author, title);
 
             int id = random.nextInt(Integer.MAX_VALUE);
-            books.put(String.valueOf(id), book);
+            notebooks.put(String.valueOf(id), notebook);
 
             response.status(201); // 201 Created
             return id;
         });
 
-        // Gets the book resource for the provided id
+        // Gets the notebook resource for the provided id
         get("/notebooks/:id", (request, response) -> {
-            Notebook book = books.get(request.params(":id"));
-            if (book != null) {
-                return "Title: " + book.getTitle() + ", Author: " + book.getAuthor();
+            Notebook notebook = notebooks.get(request.params(":id"));
+            if (notebook != null) {
+                return "Title: " + notebook.getTitle() + ", Author: " + notebook.getAuthor();
             } else {
                 response.status(404); // 404 Not found
                 return "Notebooks not found";
             }
         });
 
-        // Updates the book resource for the provided id with new information
+        // Updates the notebook resource for the provided id with new information
         // author and title are sent in the request body as x-www-urlencoded values e.g. author=Foo&title=Bar
         // you get them by using request.queryParams("valuename")
         put("/notebooks/:id", (request, response) -> {
             String id = request.params(":id");
-            Notebook book = books.get(id);
-            if (book != null) {
+            Notebook notebook = notebooks.get(id);
+            if (notebook != null) {
                 String newAuthor = request.queryParams("author");
                 String newTitle = request.queryParams("title");
                 if (newAuthor != null) {
-                    book.setAuthor(newAuthor);
+                    notebook.setAuthor(newAuthor);
                 }
                 if (newTitle != null) {
-                    book.setTitle(newTitle);
+                    notebook.setTitle(newTitle);
                 }
                 return "Notebooks with id '" + id + "' updated";
             } else {
@@ -69,11 +69,11 @@ public class Merkmal {
             }
         });
 
-        // Deletes the book resource for the provided id
+        // Deletes the notebook resource for the provided id
         delete("/notebooks/:id", (request, response) -> {
             String id = request.params(":id");
-            Notebook book = books.remove(id);
-            if (book != null) {
+            Notebook notebook = notebooks.remove(id);
+            if (notebook != null) {
                 return "Notebooks with id '" + id + "' deleted";
             } else {
                 response.status(404); // 404 Not found
@@ -81,10 +81,10 @@ public class Merkmal {
             }
         });
 
-        // Gets all available book resources (ids)
+        // Gets all available notebook resources (ids)
         get("/notebooks", (request, response) -> {
             String ids = "";
-            for (String id : books.keySet()) {
+            for (String id : notebooks.keySet()) {
                 ids += id + " ";
             }
             return ids;
