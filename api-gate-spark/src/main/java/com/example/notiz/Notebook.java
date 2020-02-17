@@ -13,7 +13,7 @@ import java.util.Random;
 public class Notebook {
 
     /**
-     * Map holding the notiz
+     * Map holding the notebooks
      */
     private static Map<String, Book> books = new HashMap<String, Book>();
 
@@ -24,7 +24,7 @@ public class Notebook {
         // Creates a new book resource, will return the ID to the created resource
         // author and title are sent in the post body as x-www-urlencoded values e.g. author=Foo&title=Bar
         // you get them by using request.queryParams("valuename")
-        post("/notiz", (request, response) -> {
+        post("/notebooks", (request, response) -> {
             String author = request.queryParams("author");
             String title = request.queryParams("title");
             Book book = new Book(author, title);
@@ -37,7 +37,7 @@ public class Notebook {
         });
 
         // Gets the book resource for the provided id
-        get("/notiz/:id", (request, response) -> {
+        get("/notebooks/:id", (request, response) -> {
             Book book = books.get(request.params(":id"));
             if (book != null) {
                 return "Title: " + book.getTitle() + ", Author: " + book.getAuthor();
@@ -50,7 +50,7 @@ public class Notebook {
         // Updates the book resource for the provided id with new information
         // author and title are sent in the request body as x-www-urlencoded values e.g. author=Foo&title=Bar
         // you get them by using request.queryParams("valuename")
-        put("/notiz/:id", (request, response) -> {
+        put("/notebooks/:id", (request, response) -> {
             String id = request.params(":id");
             Book book = books.get(id);
             if (book != null) {
@@ -70,7 +70,7 @@ public class Notebook {
         });
 
         // Deletes the book resource for the provided id
-        delete("/notiz/:id", (request, response) -> {
+        delete("/notebooks/:id", (request, response) -> {
             String id = request.params(":id");
             Book book = books.remove(id);
             if (book != null) {
@@ -82,7 +82,7 @@ public class Notebook {
         });
 
         // Gets all available book resources (ids)
-        get("/notiz", (request, response) -> {
+        get("/notebooks", (request, response) -> {
             String ids = "";
             for (String id : books.keySet()) {
                 ids += id + " ";
