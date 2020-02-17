@@ -10,12 +10,12 @@ import java.util.Random;
 /**
  * A simple CRUD example showing how to create, get, update and delete book resources.
  */
-public class Notebook {
+public class Merkmal {
 
     /**
      * Map holding the notebooks
      */
-    private static Map<String, Book> books = new HashMap<String, Book>();
+    private static Map<String, Notebook> books = new HashMap<String, Notebook>();
 
     public static void main(String[] args) {
         port(8080);
@@ -27,7 +27,7 @@ public class Notebook {
         post("/notebooks", (request, response) -> {
             String author = request.queryParams("author");
             String title = request.queryParams("title");
-            Book book = new Book(author, title);
+            Notebook book = new Notebook(author, title);
 
             int id = random.nextInt(Integer.MAX_VALUE);
             books.put(String.valueOf(id), book);
@@ -38,12 +38,12 @@ public class Notebook {
 
         // Gets the book resource for the provided id
         get("/notebooks/:id", (request, response) -> {
-            Book book = books.get(request.params(":id"));
+            Notebook book = books.get(request.params(":id"));
             if (book != null) {
                 return "Title: " + book.getTitle() + ", Author: " + book.getAuthor();
             } else {
                 response.status(404); // 404 Not found
-                return "Book not found";
+                return "Notebooks not found";
             }
         });
 
@@ -52,7 +52,7 @@ public class Notebook {
         // you get them by using request.queryParams("valuename")
         put("/notebooks/:id", (request, response) -> {
             String id = request.params(":id");
-            Book book = books.get(id);
+            Notebook book = books.get(id);
             if (book != null) {
                 String newAuthor = request.queryParams("author");
                 String newTitle = request.queryParams("title");
@@ -62,22 +62,22 @@ public class Notebook {
                 if (newTitle != null) {
                     book.setTitle(newTitle);
                 }
-                return "Book with id '" + id + "' updated";
+                return "Notebooks with id '" + id + "' updated";
             } else {
                 response.status(404); // 404 Not found
-                return "Book not found";
+                return "Notebooks not found";
             }
         });
 
         // Deletes the book resource for the provided id
         delete("/notebooks/:id", (request, response) -> {
             String id = request.params(":id");
-            Book book = books.remove(id);
+            Notebook book = books.remove(id);
             if (book != null) {
-                return "Book with id '" + id + "' deleted";
+                return "Notebooks with id '" + id + "' deleted";
             } else {
                 response.status(404); // 404 Not found
-                return "Book not found";
+                return "Notebooks not found";
             }
         });
 
@@ -91,11 +91,11 @@ public class Notebook {
         });
     }
 
-    public static class Book {
+    public static class Notebook {
 
         public String author, title;
 
-        public Book(String author, String title) {
+        public Notebook(String author, String title) {
             this.author = author;
             this.title = title;
         }

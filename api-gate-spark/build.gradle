@@ -6,8 +6,7 @@ apply plugin: 'application'
 
 archivesBaseName = "api-gate"
 version = '1.0'
-//mainClassName = "com.example.firstspark.FirstSpark"
-mainClassName = "com.example.notiz/Notebook"
+mainClassName = "com.example.notiz/Merkmal"
 
 repositories {
   mavenCentral()
