@@ -7,7 +7,7 @@ apply plugin: 'application'
 archivesBaseName = "api-gate"
 version = '1.0'
 //mainClassName = "com.example.firstspark.FirstSpark"
-mainClassName = "com.example.books/Books"
+mainClassName = "com.example.notiz/Notebook"
 
 repositories {
   mavenCentral()

@@ -1,4 +1,4 @@
-package com.example.books;
+package com.example.notiz;
 
 import static spark.Spark.*;
 
@@ -10,10 +10,10 @@ import java.util.Random;
 /**
  * A simple CRUD example showing how to create, get, update and delete book resources.
  */
-public class Books {
+public class Notebook {
 
     /**
-     * Map holding the books
+     * Map holding the notiz
      */
     private static Map<String, Book> books = new HashMap<String, Book>();
 
@@ -24,7 +24,7 @@ public class Books {
         // Creates a new book resource, will return the ID to the created resource
         // author and title are sent in the post body as x-www-urlencoded values e.g. author=Foo&title=Bar
         // you get them by using request.queryParams("valuename")
-        post("/books", (request, response) -> {
+        post("/notiz", (request, response) -> {
             String author = request.queryParams("author");
             String title = request.queryParams("title");
             Book book = new Book(author, title);
@@ -37,7 +37,7 @@ public class Books {
         });
 
         // Gets the book resource for the provided id
-        get("/books/:id", (request, response) -> {
+        get("/notiz/:id", (request, response) -> {
             Book book = books.get(request.params(":id"));
             if (book != null) {
                 return "Title: " + book.getTitle() + ", Author: " + book.getAuthor();
@@ -50,7 +50,7 @@ public class Books {
         // Updates the book resource for the provided id with new information
         // author and title are sent in the request body as x-www-urlencoded values e.g. author=Foo&title=Bar
         // you get them by using request.queryParams("valuename")
-        put("/books/:id", (request, response) -> {
+        put("/notiz/:id", (request, response) -> {
             String id = request.params(":id");
             Book book = books.get(id);
             if (book != null) {
@@ -70,7 +70,7 @@ public class Books {
         });
 
         // Deletes the book resource for the provided id
-        delete("/books/:id", (request, response) -> {
+        delete("/notiz/:id", (request, response) -> {
             String id = request.params(":id");
             Book book = books.remove(id);
             if (book != null) {
@@ -82,7 +82,7 @@ public class Books {
         });
 
         // Gets all available book resources (ids)
-        get("/books", (request, response) -> {
+        get("/notiz", (request, response) -> {
             String ids = "";
             for (String id : books.keySet()) {
                 ids += id + " ";
