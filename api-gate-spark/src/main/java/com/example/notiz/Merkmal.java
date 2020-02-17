@@ -24,7 +24,7 @@ public class Merkmal {
         // Creates a new notebook resource, will return the ID to the created resource
         // author and title are sent in the post body as x-www-urlencoded values e.g. author=Foo&title=Bar
         // you get them by using request.queryParams("valuename")
-        post("/notebooks", (request, response) -> {
+        post("/notebooks/create", (request, response) -> {
             String author = request.queryParams("author");
             String title = request.queryParams("title");
             Notebook notebook = new Notebook(author, title);
@@ -46,11 +46,12 @@ public class Merkmal {
                 return "Notebooks not found";
             }
         });
+            //        }, json());
 
         // Updates the notebook resource for the provided id with new information
         // author and title are sent in the request body as x-www-urlencoded values e.g. author=Foo&title=Bar
         // you get them by using request.queryParams("valuename")
-        put("/notebooks/:id", (request, response) -> {
+        post("/notebooks/:id/update", (request, response) -> {
             String id = request.params(":id");
             Notebook notebook = notebooks.get(id);
             if (notebook != null) {
@@ -70,7 +71,7 @@ public class Merkmal {
         });
 
         // Deletes the notebook resource for the provided id
-        delete("/notebooks/:id", (request, response) -> {
+        post("/notebooks/:id/delete", (request, response) -> {
             String id = request.params(":id");
             Notebook notebook = notebooks.remove(id);
             if (notebook != null) {
@@ -83,6 +84,14 @@ public class Merkmal {
 
         // Gets all available notebook resources (ids)
         get("/notebooks", (request, response) -> {
+            String ids = "";
+            for (String id : notebooks.keySet()) {
+                ids += id + " ";
+            }
+            return ids;
+        });
+        // TODO: dedupe - consolidate with 'get("/notebooks")'
+        get("/", (request, response) -> {
             String ids = "";
             for (String id : notebooks.keySet()) {
                 ids += id + " ";
