@@ -18,6 +18,7 @@ public class Books {
     private static Map<String, Book> books = new HashMap<String, Book>();
 
     public static void main(String[] args) {
+        port(8080);
         final Random random = new Random();
 
         // Creates a new book resource, will return the ID to the created resource
