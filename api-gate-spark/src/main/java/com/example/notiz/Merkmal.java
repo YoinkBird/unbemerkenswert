@@ -1,6 +1,7 @@
 package com.example.notiz;
 
 import static spark.Spark.*;
+import spark.Request;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +26,16 @@ public class Merkmal {
      */
     private static Map<String, Notebook> notebooks = new HashMap<String, Notebook>();
 
+    private static JsonObject respToJson( Request request ){
+      JsonParser parser = new JsonParser();
+      JsonElement respData = parser.parse(request.body());
+      if (!respData.isJsonObject()) {
+        // TODO
+      }
+      JsonObject obj = respData.getAsJsonObject();
+      return obj;
+    }
+
     public static void main(String[] args) {
         port(8080);
         final Random random = new Random();
@@ -42,15 +53,11 @@ public class Merkmal {
             */
             //System.out.println("request: " + request.body());
             //System.out.println("response: " + response.body());
-            JsonElement respData = parser.parse(request.body());
-            if (!respData.isJsonObject()) {
-                // TODO
-            }
-            JsonObject obj = respData.getAsJsonObject();
+            JsonObject obj = respToJson( request );
             /* skip validation:
-            * if (!obj.hasField("author")){}
-            * if (!obj.hasField("title")){}
-            */
+             * if (!obj.hasField("author")){}
+             * if (!obj.hasField("title")){}
+             */
             JsonElement titleAsElem = obj.get("title");
             JsonElement authorAsElem = obj.get("author");
             Notebook notebook = new Notebook(authorAsElem.getAsString(), titleAsElem.getAsString());
