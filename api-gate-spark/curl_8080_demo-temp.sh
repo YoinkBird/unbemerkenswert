@@ -76,6 +76,7 @@ nbook_1_id=1
 echo "# TEST: create Notebook"
 notebook_1_author="phoenix"
 notebook_1_title_A="sre notes"
+notebook_1_title_B="sre notes, extended"
 json="$( printf '{"author": "%s", "title": "%s"}' "${notebook_1_author[@]}" "${notebook_1_title_A[@]}")"
 #resp="$( curl -s -X POST -d author="phoenix" -d title="sre notes" ${url}/notebooks/create )"
 # resp="$( curl -s -X POST -d author="phoenix" -d title="sre notes" ${url}/notebooks/create )"
@@ -99,7 +100,8 @@ unset rc
 unset resp
 
 echo "# TEST: update Notebook"
-resp="$( curl -s -X POST -d author="write" -d title="sre notes" ${url}/notebooks/${id}/update )"
+json="$( printf '{"author": "%s", "title": "%s"}' "${notebook_1_author[@]}" "${notebook_1_title_B[@]}")"
+resp="$(curl -s -X POST -H 'Content-type:application/json' -d "${json[@]}" ${url}/notebooks/${id}/update)"
 rc=$?
 echo $resp
 #id="${resp}"

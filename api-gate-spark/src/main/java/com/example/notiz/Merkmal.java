@@ -75,18 +75,23 @@ public class Merkmal {
             String id = request.params(":id");
             Notebook notebook = notebooks.get(id);
             if (notebook != null) {
-                String newAuthor = request.queryParams("author");
-                String newTitle = request.queryParams("title");
+                JsonElement respData = parser.parse(request.body());
+                JsonObject obj = respData.getAsJsonObject();
+                JsonElement titleAsElem = obj.get("title");
+                JsonElement authorAsElem = obj.get("author");
+                String newAuthor = titleAsElem.getAsString();
+                String newTitle = authorAsElem.getAsString();
                 if (newAuthor != null) {
                     notebook.setAuthor(newAuthor);
                 }
                 if (newTitle != null) {
                     notebook.setTitle(newTitle);
                 }
-                return "Notebooks with id '" + id + "' updated";
+                return( notebook.toString() );
+                //return "Notebooks with id '" + id + "' updated";
             } else {
                 response.status(404); // 404 Not found
-                return "Notebooks not found";
+                return "{\"error\":\"notebook not found\"}";  // TODO: proper JSON and include the id
             }
         });
 
