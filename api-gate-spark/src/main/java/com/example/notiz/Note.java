@@ -36,7 +36,6 @@ public class Note {
             }
           }
           System.out.println(tagsJson);
-          //return String.format("{ \"id\":\"%s\", \"title\":\"%s\", \"body\":\"%s\", \"tags\":\"[ \"%s\" ] }", this.id, this.title, this.body, this.tags[0] );
           return String.format("{ \"id\":\"%s\", \"title\":\"%s\", \"body\":\"%s\", \"tags\": [ %s ] }", this.id, this.title, this.body, tagsJson );
         }
 

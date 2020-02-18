@@ -149,31 +149,18 @@ public class Merkmal {
             JsonArray tagsAsArray = obj.get("tags").getAsJsonArray();
             String title = titleAsElem.getAsString();
             String body = bodyAsElem.getAsString();
-            //String[] tags = tagsAsElem.getAsJsonArray(); // {}; // TODO: fix
-            System.out.println("JsonAarry size " + tagsAsArray.size());
             String[] tags = new String[ tagsAsArray.size() ];
-            System.out.println("String[] tags " + Arrays.toString(tags));
-            Iterator itr = tagsAsArray.iterator();
-            //while (itr.hasNext()){
-            //    tags.
-            //}
             // https://javadoc.io/static/com.google.code.gson/gson/2.8.5/com/google/gson/JsonArray.html#get-int-
             // https://stackoverflow.com/a/33421601
             for ( int i=0; i<tags.length; i++){
               tags[i] = tagsAsArray.get(i).getAsString();
-              System.out.println("derpA " + tagsAsArray.get(i));
-              System.out.println("derpB " + tagsAsArray.get(i).getAsString());
             }
-            System.out.println("String[] tags " + tags.toString());
             Note note = new Note( title, body, tags );
 
             int id = random.nextInt(Integer.MAX_VALUE);
             String id_str = String.valueOf(id);
             notes.put(String.valueOf(id), note);
             note.setId( id );
-
-            System.out.println("post note: " + note.toString());
-            System.out.println("post note: " + Arrays.toString(note.getTags()));
 
             response.status(201); // 201 Created
             response.type("application/json");
