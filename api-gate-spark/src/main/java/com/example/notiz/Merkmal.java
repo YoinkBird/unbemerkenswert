@@ -24,6 +24,8 @@ public class Merkmal {
     public static void main(String[] args) {
         port(8080);
         final Random random = new Random();
+        Gson gson = new Gson();
+        JsonParser parser = new JsonParser();
 
         // Creates a new notebook resource, will return the ID to the created resource
         // author and title are sent in the post body as x-www-urlencoded values e.g. author=Foo&title=Bar
@@ -31,8 +33,6 @@ public class Merkmal {
         post("/notebooks/create", (request, response) -> {
             //System.out.println("request: " + request.body());
             //System.out.println("response: " + response.body());
-            Gson gson = new Gson();
-            JsonParser parser = new JsonParser();
             JsonElement respData = parser.parse(request.body());
             if (!respData.isJsonObject()) {
                 // TODO
@@ -60,10 +60,10 @@ public class Merkmal {
         get("/notebooks/:id", (request, response) -> {
             Notebook notebook = notebooks.get(request.params(":id"));
             if (notebook != null) {
-                return "Title: " + notebook.getTitle() + ", Author: " + notebook.getAuthor();
+                return( notebook.toString() );
             } else {
                 response.status(404); // 404 Not found
-                return "Notebooks not found";
+                return "{\"error\":\"notebook not found\"}";  // TODO: proper JSON and include the id
             }
         });
             //        }, json());

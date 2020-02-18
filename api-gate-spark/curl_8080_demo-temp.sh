@@ -77,10 +77,17 @@ echo "# TEST: create Notebook"
 notebook_1_author="phoenix"
 notebook_1_title_A="sre notes"
 json="$( printf '{"author": "%s", "title": "%s"}' "${notebook_1_author[@]}" "${notebook_1_title_A[@]}")"
+#resp="$( curl -s -X POST -d author="phoenix" -d title="sre notes" ${url}/notebooks/create )"
+# resp="$( curl -s -X POST -d author="phoenix" -d title="sre notes" ${url}/notebooks/create )"
 echo "curl -s -X POST -H 'Content-type:application/json' -d "${json[@]}" ${url}/notebooks/create"
 resp="$(curl -s -X POST -H 'Content-type:application/json' -d "${json[@]}" ${url}/notebooks/create)"
 rc=$?
 id="$( echo ${resp} | jq -r '.id')"
+# hard-coded oracles based on the note_1_<etc> vars; don't want to have accidents with variables
+echo "${resp}" | jq -r -e '.author == "phoenix"' 
+echo "${resp}" | jq -r -e '.title == "sre notes"'
+#echo "${resp}" | jq -r -e '.created != null'
+#echo "${resp}" | jq -r -e '.lastModified != null'
 unset rc
 unset resp
 unset json
@@ -99,6 +106,9 @@ echo $resp
 unset rc
 unset resp
 
+echo "# INFO: all Notebooks:"
+curl -s -X GET ${url}/notebooks
+echo ""
 if [[ 1 -eq 1 ]]; then
   echo "# TEST: delete Notebook"
   set +e
