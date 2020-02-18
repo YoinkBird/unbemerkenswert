@@ -95,7 +95,7 @@ unset json
 
 echo "# TEST: get Notebook"
 resp="$( curl -s -X GET ${url}/notebooks/${id} )"
-echo $resp
+echo $resp | jq
 unset rc
 unset resp
 
@@ -103,10 +103,11 @@ echo "# TEST: update Notebook"
 json="$( printf '{"author": "%s", "title": "%s"}' "${notebook_1_author[@]}" "${notebook_1_title_B[@]}")"
 resp="$(curl -s -X POST -H 'Content-type:application/json' -d "${json[@]}" ${url}/notebooks/${id}/update)"
 rc=$?
-echo $resp
+echo $resp | jq
 #id="${resp}"
 unset rc
 unset resp
+unset json
 
 echo "# INFO: all Notebooks:"
 curl -s -X GET ${url}/notebooks
@@ -118,7 +119,7 @@ if [[ 1 -eq 1 ]]; then
   resp="$( curl -s -X POST ${url}/notebooks/${id}/delete )"
   rc=$?
   set -e
-  echo $resp
+  echo $resp | jq
   #id="${resp}"
   unset rc
   unset resp
