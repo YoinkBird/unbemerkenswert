@@ -25,6 +25,8 @@ public class Merkmal {
      * Map holding the notebooks
      */
     private static Map<String, Notebook> notebooks = new HashMap<String, Notebook>();
+    /* Map holding the notes */
+    private static Map<String, Note> notes = new HashMap<String, Note>();
 
     private static JsonObject respToJson( Request request ){
       JsonParser parser = new JsonParser();
@@ -137,6 +139,29 @@ public class Merkmal {
             }
             return ids;
         });
+
+        // Creates a new note within an existing notebook resource, will return the ID to the created resource
+        // title, body, tags[]
+        post("/notebooks/:nbid/create", (request, response) -> {
+            JsonObject obj = respToJson( request );
+            JsonElement titleAsElem = obj.get("title");
+            JsonElement bodyAsElem = obj.get("body");
+            //JsonElement tagsAsElem = obj.get("tags");
+            String title = titleAsElem.getAsString();
+            String body = bodyAsElem.getAsString();
+            String[] tags = {}; // TODO: fix
+            Note note = new Note( title, body, tags );
+
+            int id = random.nextInt(Integer.MAX_VALUE);
+            String id_str = String.valueOf(id);
+            notes.put(String.valueOf(id), note);
+            note.setId( id );
+
+            response.status(201); // 201 Created
+            response.type("application/json");
+            return( notes.get(id_str).toString() );
+        });
+
     }
 
 }

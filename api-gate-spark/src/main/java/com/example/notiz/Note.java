@@ -27,6 +27,11 @@ public class Note {
 		return id;
 	}
 
+        public String toString(){
+          //return String.format("{ \"id\":\"%s\", \"title\":\"%s\", \"body\":\"%s\", \"tags\":\"[ \"%s\" ] }", this.id, this.title, this.body, this.tags[0] );
+          return String.format("{ \"id\":\"%s\", \"title\":\"%s\", \"body\":\"%s\", \"tags\": [ \"\" ] }", this.id, this.title, this.body );
+        }
+
         public void setCreateDate(){
           // attempt1 - class variable
           // String dateFormat = this.dateFormat.toString();
@@ -53,7 +58,10 @@ public class Note {
           this.setUpdateDate(this.getCreated());
         }
 
-        public Note(){
+        public Note(String title, String body, String[] tags){
+          this.title = title;
+          this.body = body;
+          this.tags = tags;
           this.setCreateDateAndUpdateDate();
         }
 
