@@ -6,6 +6,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import com.google.gson.Gson;
+import com.google.gson.*;
+import com.google.gson.JsonParser;
+
 //src: https://github.com/perwendel/spark/blob/master/README.md#examples
 /**
  * A simple CRUD example showing how to create, get, update and delete notebook resources.
@@ -25,15 +29,31 @@ public class Merkmal {
         // author and title are sent in the post body as x-www-urlencoded values e.g. author=Foo&title=Bar
         // you get them by using request.queryParams("valuename")
         post("/notebooks/create", (request, response) -> {
-            String author = request.queryParams("author");
-            String title = request.queryParams("title");
-            Notebook notebook = new Notebook(author, title);
+            //System.out.println("request: " + request.body());
+            //System.out.println("response: " + response.body());
+            Gson gson = new Gson();
+            JsonParser parser = new JsonParser();
+            JsonElement respData = parser.parse(request.body());
+            if (!respData.isJsonObject()) {
+                // TODO
+            }
+            JsonObject obj = respData.getAsJsonObject();
+            /* skip validation:
+            * if (!obj.hasField("author")){}
+            * if (!obj.hasField("title")){}
+            */
+            JsonElement titleAsElem = obj.get("title");
+            JsonElement authorAsElem = obj.get("author");
+            Notebook notebook = new Notebook(authorAsElem.getAsString(), titleAsElem.getAsString());
 
             int id = random.nextInt(Integer.MAX_VALUE);
+            String id_str = String.valueOf(id);
             notebooks.put(String.valueOf(id), notebook);
+            notebook.setId( id );
 
             response.status(201); // 201 Created
-            return id;
+            response.type("application/json");
+            return( notebooks.get(id_str).toString() );
         });
 
         // Gets the notebook resource for the provided id
@@ -102,11 +122,26 @@ public class Merkmal {
 
     public static class Notebook {
 
-        public String author, title;
+        public String id, author, title;
+
+        public String toString(){
+          return String.format("{ \"id\":\"%s\", \"title\":\"%s\", \"author\":\"%s\" }", this.id, this.title, this.author);
+        }
 
         public Notebook(String author, String title) {
             this.author = author;
             this.title = title;
+        }
+
+        public String getId(){
+            return this.id;
+        }
+        public String setId(String id){
+            this.id = id;
+            return this.id;
+        }
+        public String setId(int id){
+            return this.setId(String.valueOf(id));
         }
 
         public String getAuthor() {

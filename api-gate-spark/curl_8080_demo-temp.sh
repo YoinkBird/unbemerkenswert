@@ -74,12 +74,16 @@ nbook_1_id=1
 # BEGIN TESTS
 # TEMP:  notebook manipulation
 echo "# TEST: create Notebook"
-resp="$( curl -s -X POST -d author="phoenix" -d title="sre notes" ${url}/notebooks/create )"
+notebook_1_author="phoenix"
+notebook_1_title_A="sre notes"
+json="$( printf '{"author": "%s", "title": "%s"}' "${notebook_1_author[@]}" "${notebook_1_title_A[@]}")"
+echo "curl -s -X POST -H 'Content-type:application/json' -d "${json[@]}" ${url}/notebooks/create"
+resp="$(curl -s -X POST -H 'Content-type:application/json' -d "${json[@]}" ${url}/notebooks/create)"
 rc=$?
-echo $resp
-id="${resp}"
+id="$( echo ${resp} | jq -r '.id')"
 unset rc
 unset resp
+unset json
 
 echo "# TEST: get Notebook"
 resp="$( curl -s -X GET ${url}/notebooks/${id} )"
