@@ -40,7 +40,6 @@ public class Merkmal {
         port(8080);
         final Random random = new Random();
         Gson gson = new Gson();
-        JsonParser parser = new JsonParser();
 
         // Creates a new notebook resource, will return the ID to the created resource
         // author and title are sent in the post body as x-www-urlencoded values e.g. author=Foo&title=Bar
@@ -91,8 +90,7 @@ public class Merkmal {
             String id = request.params(":id");
             Notebook notebook = notebooks.get(id);
             if (notebook != null) {
-                JsonElement respData = parser.parse(request.body());
-                JsonObject obj = respData.getAsJsonObject();
+                JsonObject obj = respToJson( request );
                 JsonElement titleAsElem = obj.get("title");
                 JsonElement authorAsElem = obj.get("author");
                 String newAuthor = titleAsElem.getAsString();
