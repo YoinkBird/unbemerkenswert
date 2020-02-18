@@ -19,6 +19,9 @@ dependencies {
 
   compileOnly 'org.projectlombok:lombok:1.18.12'
   annotationProcessor 'org.projectlombok:lombok:1.18.12'
+  compile 'com.fasterxml.jackson.core:jackson-databind:2.2.+'
+  compile 'com.fasterxml.jackson.core:jackson-core:2.2.+'
+  compile 'com.fasterxml.jackson.core:jackson-annotations:2.2.+'
 
 }
 // https://stackoverflow.com/questions/36334496/autoreload-in-jetty-with-gradle-and-kotlin

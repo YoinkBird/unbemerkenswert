@@ -10,6 +10,10 @@ import com.google.gson.Gson;
 import com.google.gson.*;
 import com.google.gson.JsonParser;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
 //src: https://github.com/perwendel/spark/blob/master/README.md#examples
 /**
  * A simple CRUD example showing how to create, get, update and delete notebook resources.
@@ -31,6 +35,11 @@ public class Merkmal {
         // author and title are sent in the post body as x-www-urlencoded values e.g. author=Foo&title=Bar
         // you get them by using request.queryParams("valuename")
         post("/notebooks/create", (request, response) -> {
+          /*
+            ObjectMapper mapper = new ObjectMapper();
+            Notebook newNotebook = mapper.readValue(request.body(), Notebook.class);
+            System.out.println("mapper: " + newNotebook.toString());
+            */
             //System.out.println("request: " + request.body());
             //System.out.println("response: " + response.body());
             JsonElement respData = parser.parse(request.body());
