@@ -36,7 +36,7 @@ public class Note {
             }
           }
           System.out.println(tagsJson);
-          return String.format("{ \"id\":\"%s\", \"title\":\"%s\", \"body\":\"%s\", \"tags\": [ %s ] }", this.id, this.title, this.body, tagsJson );
+          return String.format("{ \"id\":\"%s\", \"title\":\"%s\", \"body\":\"%s\", \"tags\": [ %s ], \"created\" : \"%s\", \"lastModified\" : \"%s\" }", this.id, this.title, this.body, tagsJson , this.created, this.lastModified);
         }
 
         public void setCreateDate(){
