@@ -100,10 +100,10 @@ public class Merkmal {
             String id = request.params(":id");
             Notebook notebook = notebooks.remove(id);
             if (notebook != null) {
-                return "Notebooks with id '" + id + "' deleted";
+                return String.format("{\"deleted\" : [ \"%s\" ]}", id);
             } else {
                 response.status(404); // 404 Not found
-                return "Notebooks not found";
+                return "{\"error\":\"notebook not found\"}";  // TODO: proper JSON and include the id
             }
         });
 
