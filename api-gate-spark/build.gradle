@@ -17,6 +17,9 @@ dependencies {
   compile 'org.slf4j:slf4j-simple:1.7.6'
   implementation 'com.google.code.gson:gson:2.8.6'
 
+  compileOnly 'org.projectlombok:lombok:1.18.12'
+  annotationProcessor 'org.projectlombok:lombok:1.18.12'
+
 }
 // https://stackoverflow.com/questions/36334496/autoreload-in-jetty-with-gradle-and-kotlin
 applicationDefaultJvmArgs = ["-Djetty.reload=automatic", "-Djetty.scanIntervalSeconds=2"]
