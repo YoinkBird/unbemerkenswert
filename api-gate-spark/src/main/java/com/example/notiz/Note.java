@@ -28,8 +28,16 @@ public class Note {
 	}
 
         public String toString(){
+          String tagsJson = new String();
+          for ( int i=0; i<this.tags.length; i++){
+            tagsJson += String.format("\"%s\"", this.tags[i]);
+            if ( i != this.tags.length - 1 ){
+              tagsJson += ", ";
+            }
+          }
+          System.out.println(tagsJson);
           //return String.format("{ \"id\":\"%s\", \"title\":\"%s\", \"body\":\"%s\", \"tags\":\"[ \"%s\" ] }", this.id, this.title, this.body, this.tags[0] );
-          return String.format("{ \"id\":\"%s\", \"title\":\"%s\", \"body\":\"%s\", \"tags\": [ \"\" ] }", this.id, this.title, this.body );
+          return String.format("{ \"id\":\"%s\", \"title\":\"%s\", \"body\":\"%s\", \"tags\": [ %s ] }", this.id, this.title, this.body, tagsJson );
         }
 
         public void setCreateDate(){
